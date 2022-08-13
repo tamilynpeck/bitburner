@@ -8,7 +8,7 @@ export async function main(ns) {
   let target = "";
 
   while (true) {
-    servers = getServers();
+    servers = getServers(ns);
     for (var i = 0; i < servers.length; i++) {
       target = servers[i];
       await hackingLoop(ns, target);
@@ -28,11 +28,13 @@ async function hackingLoop(ns, target) {
   let securityThresh = ns.getServerMinSecurityLevel(target) + 5;
   securityThresh = securityThresh <= 20 ? 20 : securityThresh;
 
+  // moneyAvailable % threadshold lower when hacking level is lower
+
   while (true) {
     moneyAvailable = ns.getServerMoneyAvailable(target);
 
     ns.print(`MONEY AVAILABLE @ ${moneyAvailable / maxMoney}`);
-    if (moneyAvailable / maxMoney < 0.25) {
+    if (moneyAvailable / maxMoney <= 0.04) {
       return;
     }
 

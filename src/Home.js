@@ -19,11 +19,11 @@ export class MyHome {
     this.SCRIPTS = {
       // darkweb? TOR
       brutessh: { name: "BruteSSH.exe", cost: 500000, exec: this.ns.brutessh },
-      ftp: { name: "FTPCrack.exe", cost: 500000, exec: this.ns.ftpcrack },
-      smtp: { name: "relaySMTP.exe", cost: 500000 },
-      http: { name: "HTTPWorm.exe", cost: 500000 },
-      deep2: { name: "DeepscanV2.exe", cost: 25000000 },
+      ftp: { name: "FTPCrack.exe", cost: 15000000, exec: this.ns.ftpcrack },
+      smtp: { name: "relaySMTP.exe", cost: 5000000 },
+      http: { name: "HTTPWorm.exe", cost: 30000000 },
       sql: { name: "SQLInject.exe", cost: 250000000 },
+      deep2: { name: "DeepscanV2.exe", cost: 25000000 },
       formulas: { name: "Formulas.exe", cost: 5000000000 },
     };
   }

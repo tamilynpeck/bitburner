@@ -1,58 +1,64 @@
 /** @param {NS} ns */
 /** @param {import(".").NS} ns */
 import { configureHack } from "configure-hack.js";
+import { getServers } from "utils.js";
+import { isHackable } from "utils.js";
 
 export async function main(ns) {
-  // function for list of hacked servers
-  const servers = [
-    "n00dles",
-    "foodnstuff",
-    "sigma-cosmetics",
-    "joesguns",
-    "hong-fang-tea",
-    "harakiri-sushi",
-    "iron-gym",
-    "max-hardware",
-    "nectar-net",
-    "zer0",
-    "neo-net",
-    "silver-helix",
-    "phantasy",
-    "omega-net",
-    "netlink",
-    "johnson-ortho",
-    "the-hub",
-    "computek",
-    "crush-fitness",
-    "rothman-uni",
-  ];
+  const servers = getServers(ns).reverse();
 
   // while (true)
-  // sleep 1 min
-  // based on balance...
+  // sleep 1 min, based on balance...
 
   let ram = calcMaxRamSize(ns);
 
   ns.tprint("getPurchaseServerLimit: ", ns.getPurchasedServerLimit());
-  const purchasedServers = ns.getPurchasedServers();
+  let purchasedServers = ns.getPurchasedServers();
   ns.tprint(purchasedServers.length);
   let server = "";
+  let target = "";
+  let serverRam = 0;
 
   for (var i = 0; i < purchasedServers.length; i++) {
     server = purchasedServers[i];
-    if (ns.serverExists(server)) {
-      await checkForUpgrade(ns, server, ram);
+    serverRam = server.split("-").slice(-1)[0];
+    target = server.replace("server-", "").replace(`-${serverRam}`, "");
+
+    if (!ns.serverExists(server)) {
+      continue;
+    } else if (!isHackable(ns, target)) {
+      deleteServer(ns, server, target);
+    } else {
+      await checkForUpgrade(ns, server, serverRam);
     }
   }
 
+  purchasedServers = ns.getPurchasedServers();
   for (var i = 0; i < servers.length; i++) {
-    server = servers[i];
+    // if not in purchasedServers!!
+    target = servers[i];
+    if (ns.serverExists(`server-${target}-${ram}`)) {
+      continue;
+    }
+
+    if (!isHackable(ns, target)) {
+      continue;
+    }
+
     if (canBuyServerSize(ns, ram)) {
-      await set_server(ns, server, ram);
+      await set_server(ns, target, ram);
     } else {
       break;
     }
   }
+}
+
+function canBuyServerSize(ns, ram) {
+  const money = ns.getServerMoneyAvailable("home");
+  const cost = ns.getPurchasedServerCost(ram);
+  const percentage = Math.round((cost / money) * 100);
+  ns.tprint(`cost: ${cost} ${percentage}% of balance.`);
+  return cost < money;
 }
 
 async function set_server(ns, target, ram) {
@@ -63,14 +69,6 @@ async function set_server(ns, target, ram) {
     ns.tprint(`Purchase Server: ${serverName} targetting ${target}`);
     await configureHack(ns, target, serverName);
   }
-}
-
-function canBuyServerSize(ns, ram) {
-  const money = ns.getServerMoneyAvailable("home");
-  const cost = ns.getPurchasedServerCost(ram);
-  const percentage = Math.round((cost / money) * 100);
-  ns.tprint(`cost: ${cost} ${percentage}% of balance.`);
-  return cost < money;
 }
 
 function calcMaxRamSize(ns) {
@@ -93,21 +91,32 @@ function calcMaxRamSize(ns) {
   if (money >= 4096 * 55000) {
     ram = 4096;
   }
+  if (money >= 8192 * 55000 * 5) {
+    ram = 8192;
+  }
+  if (money >= 16384 * 55000 * 5) {
+    ram = 16384;
+  }
+  if (money >= 32768 * 55000 * 25) {
+    ram = 32768;
+  }
   return ram;
 }
 
-async function checkForUpgrade(ns, server, maxRam = 2048) {
+async function checkForUpgrade(ns, server, newRam) {
   const money = ns.getServerMoneyAvailable("home");
   const ram = server.split("-").slice(-1)[0];
-  const upgradeRam = ram * 2;
-  // ns.tprint(`${server} ${ram} * 2 is ${upgradeRam}`)
-  const upgradeCost = ns.getPurchasedServerCost(upgradeRam);
-  const target = server.replace("server-", "").replace(`-${ram}`, "");
+  const upgradeCost = ns.getPurchasedServerCost(newRam);
 
-  if (upgradeRam < maxRam && upgradeCost < money) {
-    ns.tprint(`Delete Server: ${server} targetting ${target}`);
-    ns.killall(server);
-    ns.deleteServer(server);
-    await set_server(ns, target, upgradeRam);
+  if (ram < newRam && upgradeCost < money) {
+    const target = server.replace("server-", "").replace(`-${ram}`, "");
+    deleteServer(ns, server, target);
+    // await set_server(ns, target, newRam);
   }
+}
+
+function deleteServer(ns, server, target) {
+  ns.tprint(`Delete Server: ${server} targetting ${target}`);
+  ns.killall(server);
+  ns.deleteServer(server);
 }

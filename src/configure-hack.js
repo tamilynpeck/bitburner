@@ -1,4 +1,6 @@
 /** @param {NS} ns */
+/** @param {import(".").NS} ns */
+
 import { run_nuke } from "nuke.js";
 import { isHackable } from "utils.js";
 
@@ -24,6 +26,7 @@ export async function configureHack(ns, target, server = null) {
   }
 
   if (!isHackable(ns, target, server ? false : true)) {
+    ns.tprint(target, " Not Hackable");
     return;
   }
 
@@ -37,14 +40,14 @@ export async function configureHack(ns, target, server = null) {
   const maxRam = ns.getServerMaxRam(hostServer);
   const usedRam = ns.getServerUsedRam(hostServer);
   const ramAvailable = maxRam - usedRam;
-  if (ramAvailable == 0) {
+  if (ramAvailable <= 0) {
     ns.tprint(`no ram available on ${hostServer}`);
     return;
   }
 
   const threads =
     Math.floor(ramAvailable / ramNeeded) - (hostServer == "home" ? 20 : 0);
-  if (threads >= 1) {
+  if (threads > 0) {
     ns.tprint(`exec ${script} -t ${threads} ${target} on ${hostServer}`);
     ns.exec(script, hostServer, threads, target);
   }

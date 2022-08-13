@@ -3,11 +3,21 @@ import { isHackable } from "utils.js";
 
 export async function main(ns) {
   let find = "run4theh111z";
+  findServer(ns, find);
 
-  ns.tprint(ns.scan(find));
   // let servers = find_profit(ns)
-  let servers = unique_server_list(ns, 200);
+
+  // let servers = unique_server_list(ns, 200);
+  // ns.tprint(servers);
+}
+
+export function findServer(ns, server) {
+  let servers = ns.scan(server);
   ns.tprint(servers);
+
+  for (var i = 0; i < servers.length; i++) {
+    ns.tprint(ns.scan(servers[i]));
+  }
 }
 
 export function unique_server_list(ns, count) {

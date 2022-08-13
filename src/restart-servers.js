@@ -14,12 +14,12 @@ export async function main(ns) {
 }
 
 async function restart(ns, server) {
-  let scripts = ns.ps(server);
-  ns.tprint(scripts);
+  const runningScripts = ns.ps(server);
+  ns.tprint("ps ", runningScripts);
   const ram = server.split("-").slice(-1)[0];
   const target = server.replace("server-", "").replace(`-${ram}`, "");
 
-  if (scripts.length == 0) {
+  if (runningScripts.length == 0) {
     ns.tprint(`Restart Server: ${server} targetting ${target}`);
     await configureHack(ns, target, server);
   }
