@@ -12,7 +12,8 @@ export async function main(ns) {
 
   let ram = calcMaxRamSize(ns);
 
-  ns.tprint("getPurchaseServerLimit: ", ns.getPurchasedServerLimit());
+  const serverLimit = ns.getPurchasedServerLimit();
+  ns.tprint("getPurchaseServerLimit: ", serverLimit);
   let purchasedServers = ns.getPurchasedServers();
   ns.tprint(purchasedServers.length);
   let server = "";
@@ -26,16 +27,17 @@ export async function main(ns) {
 
     if (!ns.serverExists(server)) {
       continue;
-    } else if (!isHackable(ns, target)) {
-      deleteServer(ns, server, target);
     } else {
-      await checkForUpgrade(ns, server, serverRam);
+      await checkForUpgrade(ns, server, ram);
     }
   }
 
-  purchasedServers = ns.getPurchasedServers();
   for (var i = 0; i < servers.length; i++) {
-    // if not in purchasedServers!!
+    purchasedServers = ns.getPurchasedServers();
+    if (purchasedServers.length == serverLimit) {
+      break;
+    }
+    // if not in purchasedServers?
     target = servers[i];
     if (ns.serverExists(`server-${target}-${ram}`)) {
       continue;
@@ -74,9 +76,12 @@ async function set_server(ns, target, ram) {
 function calcMaxRamSize(ns) {
   const money = ns.getServerMoneyAvailable("home");
   // const costPerRam = 55000
-  // leave money to buy the important files.
+  // leave money to buy the important files?
+  let startingRamToBuy = 64;
+  const costPerRam = 55000;
+  const serverCount = 25;
   let ram = 64;
-  if (money >= 14080000) {
+  if (money >= 14080000 * 2) {
     ram = 256;
   }
   if (money >= 28160000) {
@@ -99,6 +104,9 @@ function calcMaxRamSize(ns) {
   }
   if (money >= 32768 * 55000 * 25) {
     ram = 32768;
+  }
+  if (money >= 65536 * 55000 * 25 * 2) {
+    ram = 65536;
   }
   return ram;
 }

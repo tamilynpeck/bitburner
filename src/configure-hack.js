@@ -26,7 +26,6 @@ export async function configureHack(ns, target, server = null) {
   }
 
   if (!isHackable(ns, target, server ? false : true)) {
-    ns.tprint(target, " Not Hackable");
     return;
   }
 

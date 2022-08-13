@@ -12,11 +12,16 @@ export async function main(ns) {
     runHomeHack(ns);
   }
 
+  let min = 0;
   while (true) {
     await ns.sleep(MINUTE);
     ns.exec(SETUP, HOME);
     // check for darkweb/purchase
-    // check for server purchases ns.exec(SERVER_SETUP, HOME);
+    if (min === 5) {
+      ns.exec(SERVER_SETUP, HOME);
+      min = 0;
+    }
+    min += 1;
   }
 }
 

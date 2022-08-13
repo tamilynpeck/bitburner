@@ -4,6 +4,8 @@
 export async function main(ns) {}
 
 export function getServers(ns) {
+  //ishackable?
+  //isWorthhacking?
   return unique_server_list(ns, 200);
 }
 // function for list of hacked servers
@@ -20,18 +22,23 @@ export function unique_server_list(ns, count) {
   return servers;
 }
 
+//split into access check vs worth hacknig check
 export function isHackable(ns, target, onTargetServer = false) {
   if (!ns.hasRootAccess(target)) {
+    ns.tprint(`${target} no Root Access on target`);
     return false;
   }
   const hackLevel = ns.getHackingLevel();
   if (hackLevel < ns.getServerRequiredHackingLevel(target)) {
+    ns.tprint(`${target} Hack level to low to hack`);
     return false;
   }
   if (ns.getServerMaxMoney(target) == 0) {
+    ns.tprint(`${target} no Money to hack`);
     return false;
   }
   if (onTargetServer && ns.getServerMaxRam(target) == 0) {
+    ns.tprint(`${target} no RAM to run hack on target`);
     return false;
   }
   return true;
