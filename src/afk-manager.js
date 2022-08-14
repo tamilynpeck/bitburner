@@ -14,7 +14,6 @@ export async function main(ns) {
 
   let min = 0;
   while (true) {
-    await ns.sleep(MINUTE);
     ns.exec(SETUP, HOME);
     // check for darkweb/purchase
     if (min === 5) {
@@ -22,6 +21,8 @@ export async function main(ns) {
       min = 0;
     }
     min += 1;
+
+    await ns.sleep(MINUTE);
   }
 }
 

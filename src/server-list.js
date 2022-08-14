@@ -2,7 +2,8 @@
 import { isHackable } from "utils.js";
 
 export async function main(ns) {
-  let find = "run4theh111z";
+  // let find = "run4theh111z";
+  let find = ".";
   findServer(ns, find);
 
   // let servers = find_profit(ns)

@@ -33,7 +33,7 @@ async function hackingLoop(ns, target) {
   while (true) {
     moneyAvailable = ns.getServerMoneyAvailable(target);
 
-    ns.print(`MONEY AVAILABLE @ ${moneyAvailable / maxMoney}`);
+    ns.print(`MONEY AVAILABLE @ ${moneyAvailable / maxMoney}%`);
     if (moneyAvailable / maxMoney <= 0.04) {
       return;
     }

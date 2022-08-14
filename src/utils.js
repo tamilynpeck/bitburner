@@ -10,6 +10,38 @@ export function getServers(ns) {
 }
 // function for list of hacked servers
 
+export function getServerList(
+  ns,
+  count = 150,
+  isServerHackable = false,
+  isServerWorthHacking = false
+) {
+  let servers = ns.scan("home");
+  let temp = [];
+  let targets = [];
+  let target = "";
+
+  // make function recurisve??
+  for (var i = 0; i < count; i++) {
+    target = [];
+    temp = ns.scan(servers[i]);
+
+    for (var j = 0; j < temp.length; j++) {
+      target = temp[j];
+      if (isServerHackable && !isHackable(ns, target)) {
+        continue;
+      }
+      if (isServerWorthHacking && !isWorthHacking(ns, target)) {
+        continue;
+      }
+    }
+
+    servers.push(...temp);
+    servers = [...new Set(servers)];
+  }
+  return servers;
+}
+
 export function unique_server_list(ns, count) {
   let servers = ns.scan("home");
   let temp = [];
@@ -22,23 +54,32 @@ export function unique_server_list(ns, count) {
   return servers;
 }
 
+export function isWorthHacking(ns, target) {
+  // security/chance
+  if (ns.getServerMaxMoney(target) == 0) {
+    ns.print(`${target} no Money to hack`);
+    return false;
+  }
+  return true;
+}
+
 //split into access check vs worth hacknig check
 export function isHackable(ns, target, onTargetServer = false) {
   if (!ns.hasRootAccess(target)) {
-    ns.tprint(`${target} no Root Access on target`);
+    ns.print(`${target} no Root Access on target`);
     return false;
   }
   const hackLevel = ns.getHackingLevel();
   if (hackLevel < ns.getServerRequiredHackingLevel(target)) {
-    ns.tprint(`${target} Hack level to low to hack`);
+    ns.print(`${target} Hack level to low to hack`);
     return false;
   }
   if (ns.getServerMaxMoney(target) == 0) {
-    ns.tprint(`${target} no Money to hack`);
+    // ns.print(`${target} no Money to hack`);
     return false;
   }
   if (onTargetServer && ns.getServerMaxRam(target) == 0) {
-    ns.tprint(`${target} no RAM to run hack on target`);
+    // ns.print(`${target} no RAM to run hack on target`);
     return false;
   }
   return true;

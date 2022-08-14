@@ -1,11 +1,11 @@
 /** @param {NS} ns */
 /** @param {import(".").NS} ns */
 import { configureHack } from "configure-hack.js";
-import { getServers } from "utils.js";
+import { getServerList } from "utils.js";
 import { isHackable } from "utils.js";
 
 export async function main(ns) {
-  const servers = getServers(ns).reverse();
+  const servers = getServerList(ns, 150, true, true).reverse();
 
   // while (true)
   // sleep 1 min, based on balance...
@@ -13,9 +13,9 @@ export async function main(ns) {
   let ram = calcMaxRamSize(ns);
 
   const serverLimit = ns.getPurchasedServerLimit();
-  ns.tprint("getPurchaseServerLimit: ", serverLimit);
+  // ns.tprint("getPurchaseServerLimit: ", serverLimit);
   let purchasedServers = ns.getPurchasedServers();
-  ns.tprint(purchasedServers.length);
+  // ns.tprint(purchasedServers.length);
   let server = "";
   let target = "";
   let serverRam = 0;
@@ -34,7 +34,9 @@ export async function main(ns) {
 
   for (var i = 0; i < servers.length; i++) {
     purchasedServers = ns.getPurchasedServers();
-    if (purchasedServers.length == serverLimit) {
+    // ns.tprint("purchasedServers.length ", purchasedServers.length);
+    // ns.tprint(purchasedServers.length == serverLimit);
+    if (purchasedServers.length === serverLimit) {
       break;
     }
     // if not in purchasedServers?
@@ -107,6 +109,9 @@ function calcMaxRamSize(ns) {
   }
   if (money >= 65536 * 55000 * 25 * 2) {
     ram = 65536;
+  }
+  if (money >= 131072 * 55000 * 25 * 2) {
+    ram = 131072;
   }
   return ram;
 }
