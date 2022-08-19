@@ -3,21 +3,24 @@ import { isHackable } from "utils.js";
 
 export async function main(ns) {
   // let find = "run4theh111z";
-  let find = ".";
+  let find = "The-Cave";
   findServer(ns, find);
 
   // let servers = find_profit(ns)
 
-  // let servers = unique_server_list(ns, 200);
-  // ns.tprint(servers);
+  let servers = unique_server_list(ns, 250);
+  ns.tprint(servers.length);
+  ns.tprint(servers);
 }
 
 export function findServer(ns, server) {
   let servers = ns.scan(server);
   ns.tprint(servers);
+  let temp = servers;
 
-  for (var i = 0; i < servers.length; i++) {
-    ns.tprint(ns.scan(servers[i]));
+  for (var i = 0; i < 5; i++) {
+    ns.tprint(temp[0]);
+    temp = ns.scan(temp[0]);
   }
 }
 
