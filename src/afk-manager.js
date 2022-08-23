@@ -21,7 +21,8 @@ export async function main(ns) {
 
     if (min === 5) {
       ns.exec(SERVER_SETUP, HOME); // at least 1m?
-      ns.exec(CONTRACTS, HOME);
+      ns.exec(CONTRACTS, HOME, 1, "find");
+
       min = 0;
     }
     min += 1;
@@ -33,7 +34,6 @@ export async function main(ns) {
 function isHomeHackRunning(ns) {
   const scriptsRunning = ns.ps(HOME);
   for (var i = 0; i < scriptsRunning.length; i++) {
-    ns.tprint(scriptsRunning[i]);
     if (scriptsRunning[i].filename === HOME_HACK) {
       return true;
     }
@@ -46,7 +46,7 @@ function runHomeHack(ns) {
   const maxRam = ns.getServerMaxRam(HOME);
   const usedRam = ns.getServerUsedRam(HOME);
   const ramAvailable = maxRam - usedRam;
-  const leaveAvailable = maxRam / 32;
+  const leaveAvailable = maxRam / 32 + 1;
   const threads = Math.floor(ramAvailable / ramNeeded) - leaveAvailable;
 
   if (threads > 0) {

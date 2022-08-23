@@ -1,14 +1,17 @@
 /** @param {NS} ns */
 /** @param {import(".").NS} ns */
 
-export async function main(ns) {}
-
 export function getServers(ns) {
-  //ishackable?
-  //isWorthhacking?
-  return unique_server_list(ns, 200);
+  let servers = ns.scan("home");
+  let temp = [];
+
+  for (var i = 0; i < 150; i++) {
+    temp = ns.scan(servers[i]);
+    servers.push(...temp);
+    servers = [...new Set(servers)];
+  }
+  return servers;
 }
-// function for list of hacked servers
 
 export function getServerList(
   ns,
@@ -36,18 +39,6 @@ export function getServerList(
       }
     }
 
-    servers.push(...temp);
-    servers = [...new Set(servers)];
-  }
-  return servers;
-}
-
-export function unique_server_list(ns, count) {
-  let servers = ns.scan("home");
-  let temp = [];
-
-  for (var i = 0; i < count; i++) {
-    temp = ns.scan(servers[i]);
     servers.push(...temp);
     servers = [...new Set(servers)];
   }
@@ -87,7 +78,7 @@ export function isHackable(ns, target, onTargetServer = false) {
 
 // identify highest hackable server...
 export function higestHackableServer(ns) {
-  const servers = unique_server_list(ns, count);
+  const servers = unique_server_list(ns);
   let maxServer = "";
   let maxAmount = 0;
   let target = "";

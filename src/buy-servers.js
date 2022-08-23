@@ -6,16 +6,9 @@ import { isHackable } from "utils.js";
 
 export async function main(ns) {
   const servers = getServerList(ns, 150, true, true).reverse();
-
-  // while (true)
-  // sleep 1 min, based on balance...
-
-  let ram = calcMaxRamSize(ns);
-
   const serverLimit = ns.getPurchasedServerLimit();
-  // ns.tprint("getPurchaseServerLimit: ", serverLimit);
+  let ram = calcMaxRamSize(ns);
   let purchasedServers = ns.getPurchasedServers();
-  // ns.tprint(purchasedServers.length);
   let server = "";
   let target = "";
   let serverRam = 0;
@@ -50,7 +43,7 @@ export async function main(ns) {
     }
 
     if (canBuyServerSize(ns, ram)) {
-      await set_server(ns, target, ram);
+      await setServer(ns, target, ram);
     } else {
       break;
     }
@@ -65,7 +58,7 @@ function canBuyServerSize(ns, ram) {
   return cost < money;
 }
 
-async function set_server(ns, target, ram) {
+async function setServer(ns, target, ram) {
   let serverName = `server-${target}-${ram}`;
 
   if (!ns.serverExists(serverName)) {
@@ -124,7 +117,6 @@ async function checkForUpgrade(ns, server, newRam) {
   if (ram < newRam && upgradeCost < money) {
     const target = server.replace("server-", "").replace(`-${ram}`, "");
     deleteServer(ns, server, target);
-    // await set_server(ns, target, newRam);
   }
 }
 

@@ -1,6 +1,6 @@
 /** @param {NS} ns */
 /** @param {import(".").NS} ns */
-import { isHackable } from "utils.js";
+import { isHackable, getServers } from "utils.js";
 
 export async function main(ns) {
   const action = ns.args[0];
@@ -9,33 +9,28 @@ export async function main(ns) {
     const findTarget = ns.args[1] ? ns.args[1] : "run4theh111z";
     findServer(ns, findTarget);
   }
+
+  if (action === "min") {
+    worthBuyingPortHack(ns);
+  }
 }
 
 export function findServer(ns, server) {
+  ns.tprint(`Find: ${server}`);
   let servers = ns.scan(server);
-  ns.tprint(servers);
   let temp = servers;
 
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < 15; i++) {
     ns.tprint(temp[0]);
+    if (temp[0] == "home") {
+      break;
+    }
     temp = ns.scan(temp[0]);
   }
 }
 
-export function unique_server_list(ns, count) {
-  let servers = ns.scan("home");
-  let temp = [];
-
-  for (var i = 0; i < count; i++) {
-    temp = ns.scan(servers[i]);
-    servers.push(...temp);
-    servers = [...new Set(servers)];
-  }
-  return servers;
-}
-
-function find_profit(ns) {
-  const servers = unique_server_list(ns, 150);
+function findProfit(ns) {
+  const servers = getServers(ns);
   let hackableServers = [];
   let maxServer = "";
   let maxAmount = 0;
@@ -47,7 +42,7 @@ function find_profit(ns) {
       continue;
     }
     hackableServers.push(target);
-    print_monies(ns, target);
+    printMonies(ns, target);
     if (maxAmount < ns.getServerMaxMoney(target)) {
       maxAmount = ns.getServerMaxMoney(target);
       maxServer = target;
@@ -59,17 +54,33 @@ function find_profit(ns) {
   return hackableServers;
 }
 
-function print_monies(ns, target) {
+function printMonies(ns, target) {
   let hasAccess = ns.hasRootAccess(target);
   if (hasAccess) {
     ns.tprint(ns.getServerMaxMoney(target), "-", target);
   }
 }
 
-function find_message(ns, target, fileName) {
-  const files = ns.ls(target);
+// Max: {"1":100,"2":309,"3":522,"4":832,"5":1285}
+// Min: {"0": 1, "1":50,"2":100,"3":323,"4":412,"5":750}
+function worthBuyingPortHack(ns) {
+  const servers = getServers(ns);
+  let config = {};
 
-  if (fileName in files) {
-    ns.tprint(`found ${fileName} on ${target}!`);
-  }
+  // "5": 1
+  servers.splice(servers.indexOf("darkweb"), 1);
+  servers.splice(servers.indexOf("home"), 1);
+  // remove personal servers...
+
+  servers.forEach((server) => {
+    let requiredPorts = ns.getServerNumPortsRequired(server);
+    let requiredHackLevel = ns.getServerRequiredHackingLevel(server);
+    if (!(requiredPorts in config)) {
+      config[requiredPorts] = requiredHackLevel;
+    } else if (config[requiredPorts] > requiredHackLevel) {
+      config[requiredPorts] = requiredHackLevel;
+    }
+  });
+
+  ns.tprint(config);
 }
