@@ -1,11 +1,13 @@
 /** @param {NS} ns */
 /** @param {import(".").NS} ns */
+import { configureHack } from "configure-hack.js";
+import { getServers } from "utils.js";
 
 const MINUTE = 60000;
 const HOME = "home";
 const HOME_HACK = "afk-home-hack.js";
-const SETUP = "setup.js";
 const SERVER_SETUP = "buy-servers.js";
+const CONTRACTS = "coding-contracts.js";
 
 export async function main(ns) {
   if (!isHomeHackRunning(ns)) {
@@ -14,10 +16,12 @@ export async function main(ns) {
 
   let min = 0;
   while (true) {
-    ns.exec(SETUP, HOME);
-    // check for darkweb/purchase
+    await setup(ns);
+    // check for darkweb/purchase?
+
     if (min === 5) {
-      ns.exec(SERVER_SETUP, HOME);
+      ns.exec(SERVER_SETUP, HOME); // at least 1m?
+      ns.exec(CONTRACTS, HOME);
       min = 0;
     }
     min += 1;
@@ -29,6 +33,7 @@ export async function main(ns) {
 function isHomeHackRunning(ns) {
   const scriptsRunning = ns.ps(HOME);
   for (var i = 0; i < scriptsRunning.length; i++) {
+    ns.tprint(scriptsRunning[i]);
     if (scriptsRunning[i].filename === HOME_HACK) {
       return true;
     }
@@ -41,9 +46,19 @@ function runHomeHack(ns) {
   const maxRam = ns.getServerMaxRam(HOME);
   const usedRam = ns.getServerUsedRam(HOME);
   const ramAvailable = maxRam - usedRam;
-  const threads = Math.floor(ramAvailable / ramNeeded) - 100;
+  const leaveAvailable = maxRam / 32;
+  const threads = Math.floor(ramAvailable / ramNeeded) - leaveAvailable;
+
   if (threads > 0) {
     ns.tprint(`exec ${HOME_HACK} -t ${threads} on ${HOME}`);
     ns.exec(HOME_HACK, HOME, threads);
+  }
+}
+
+async function setup(ns) {
+  const servers = getServers(ns);
+
+  for (var i = 0; i < servers.length; i++) {
+    await configureHack(ns, servers[i]);
   }
 }

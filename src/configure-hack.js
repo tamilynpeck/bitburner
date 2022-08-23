@@ -31,8 +31,8 @@ export async function configureHack(ns, target, server = null) {
 
   const script = "hacking-loop.js";
   const files = ns.ls(hostServer);
-  if (!(script in files)) {
-    await ns.scp(script, scriptServer, hostServer);
+  if (!files.includes(script)) {
+    await ns.scp(script, hostServer, scriptServer);
   }
 
   const ramNeeded = ns.getScriptRam(script, hostServer);

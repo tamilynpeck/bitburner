@@ -1,16 +1,14 @@
 /** @param {NS} ns */
+/** @param {import(".").NS} ns */
 import { isHackable } from "utils.js";
 
 export async function main(ns) {
-  // let find = "run4theh111z";
-  let find = "The-Cave";
-  findServer(ns, find);
+  const action = ns.args[0];
 
-  // let servers = find_profit(ns)
-
-  let servers = unique_server_list(ns, 250);
-  ns.tprint(servers.length);
-  ns.tprint(servers);
+  if (action === "find") {
+    const findTarget = ns.args[1] ? ns.args[1] : "run4theh111z";
+    findServer(ns, findTarget);
+  }
 }
 
 export function findServer(ns, server) {
@@ -37,7 +35,7 @@ export function unique_server_list(ns, count) {
 }
 
 function find_profit(ns) {
-  const servers = unique_server_list(ns, 130);
+  const servers = unique_server_list(ns, 150);
   let hackableServers = [];
   let maxServer = "";
   let maxAmount = 0;
