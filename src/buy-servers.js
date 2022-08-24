@@ -1,38 +1,37 @@
 /** @param {NS} ns */
 /** @param {import(".").NS} ns */
 import { configureHack } from "configure-hack.js";
-import { getServerList } from "utils.js";
-import { isHackable } from "utils.js";
+import { getServerList, isHackable } from "utils.js";
 
 export async function main(ns) {
-  const servers = getServerList(ns, 150, true, true).reverse();
+  const servers = getServerList(ns, true, true).reverse();
   const serverLimit = ns.getPurchasedServerLimit();
   let ram = calcMaxRamSize(ns);
   let purchasedServers = ns.getPurchasedServers();
   let server = "";
   let target = "";
-  let serverRam = 0;
+  let upgradeServers = [];
 
+  if (purchasedServers.length === serverLimit) {
+    ns.toast("25/25 Servers!", "success");
+  }
+  // purchasedServers.forEach
   for (var i = 0; i < purchasedServers.length; i++) {
     server = purchasedServers[i];
-    serverRam = server.split("-").slice(-1)[0];
-    target = server.replace("server-", "").replace(`-${serverRam}`, "");
-
-    if (!ns.serverExists(server)) {
-      continue;
-    } else {
-      await checkForUpgrade(ns, server, ram);
-    }
+    let result = checkForUpgrade(ns, server, ram);
+    if (result) upgradeServers.push(result);
   }
 
   for (var i = 0; i < servers.length; i++) {
     purchasedServers = ns.getPurchasedServers();
-    // ns.tprint("purchasedServers.length ", purchasedServers.length);
-    // ns.tprint(purchasedServers.length == serverLimit);
-    if (purchasedServers.length === serverLimit) {
+    if (purchasedServers.length === serverLimit && upgradeServers.length > 0) {
+      ns.tprint(upgradeServers);
+      deleteServer(ns, upgradeServers[0].currentName);
+      upgradeServers.shift();
+    } else if (purchasedServers.length === serverLimit) {
       break;
     }
-    // if not in purchasedServers?
+
     target = servers[i];
     if (ns.serverExists(`server-${target}-${ram}`)) {
       continue;
@@ -55,7 +54,7 @@ function canBuyServerSize(ns, ram) {
   const cost = ns.getPurchasedServerCost(ram);
   const percentage = Math.round((cost / money) * 100);
   ns.tprint(`cost: ${cost} ${percentage}% of balance.`);
-  return cost < money;
+  return cost < money * 0.5;
 }
 
 async function setServer(ns, target, ram) {
@@ -109,19 +108,20 @@ function calcMaxRamSize(ns) {
   return ram;
 }
 
-async function checkForUpgrade(ns, server, newRam) {
+function checkForUpgrade(ns, server, newRam) {
   const money = ns.getServerMoneyAvailable("home");
   const ram = server.split("-").slice(-1)[0];
   const upgradeCost = ns.getPurchasedServerCost(newRam);
 
   if (ram < newRam && upgradeCost < money) {
     const target = server.replace("server-", "").replace(`-${ram}`, "");
-    deleteServer(ns, server, target);
+    return { currentName: server, new: target, newRam: newRam };
   }
+  return;
 }
 
-function deleteServer(ns, server, target) {
-  ns.tprint(`Delete Server: ${server} targetting ${target}`);
+function deleteServer(ns, server) {
+  ns.tprint(`Delete Server: ${server}`);
   ns.killall(server);
   ns.deleteServer(server);
 }
