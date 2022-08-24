@@ -7,6 +7,16 @@ export async function main(ns) {
   const action = ns.args[0];
   let contracts = findContracts(ns);
 
+  if (action === "find" && contracts.length > 0) {
+    for (var i = 0; i < contracts.length; i++) {
+      ns.toast(
+        `${i}: ${contracts[i].type} Contract Found on ${contracts[i].server} ${contracts[i].name}`,
+        "info",
+        10000
+      );
+    }
+  }
+
   if (action === "caesar") {
     let type = "Encryption I: Caesar Cipher";
     let caesarContracts = contracts.filter(byType(type));

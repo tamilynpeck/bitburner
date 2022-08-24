@@ -47,7 +47,7 @@ async function hackingLoop(ns, target) {
     } else if (ns.getServerMoneyAvailable(target) < moneyThresh) {
       await ns.grow(target);
     } else {
-      await ns.hack(target);
+      break;
     }
   }
 }

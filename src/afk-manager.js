@@ -18,11 +18,11 @@ export async function main(ns) {
   let min = 0;
   while (true) {
     await setup(ns);
+    ns.exec(PROGRAMS, HOME);
 
     if (min === 5) {
       ns.exec(SERVER_SETUP, HOME);
       ns.exec(CONTRACTS, HOME, 1, "find");
-      ns.exec(PROGRAMS, HOME);
 
       min = 0;
     }

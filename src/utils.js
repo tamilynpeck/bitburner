@@ -15,7 +15,6 @@ export function getServers(ns) {
 
 export function getServerList(
   ns,
-  count = 150,
   isServerHackable = false,
   isServerWorthHacking = false
 ) {
@@ -24,8 +23,8 @@ export function getServerList(
   let targets = [];
   let target = "";
 
-  // make function recurisve??
-  for (var i = 0; i < count; i++) {
+  // TODO: make function recurisve??
+  for (var i = 0; i < 150; i++) {
     target = [];
     temp = ns.scan(servers[i]);
 

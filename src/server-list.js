@@ -12,14 +12,18 @@ export async function main(ns) {
 
   if (action === "connect") {
     const findTarget = ns.args[1];
-    let connections = findServer(ns, findTarget);
-    let command = connectionCommands(connections);
+    let command = getServerConnection(ns, findTarget);
     ns.tprint(command);
   }
 
   if (action === "min") {
     worthBuyingPortHack(ns);
   }
+}
+
+export function getServerConnection(ns, server) {
+  let connections = findServer(ns, server);
+  return connectionCommands(connections);
 }
 
 export function findServer(ns, server) {
