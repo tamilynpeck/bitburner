@@ -6,8 +6,15 @@ export async function main(ns) {
   const action = ns.args[0];
 
   if (action === "find") {
-    const findTarget = ns.args[1] ? ns.args[1] : "run4theh111z";
+    const findTarget = ns.args[1];
     findServer(ns, findTarget);
+  }
+
+  if (action === "connect") {
+    const findTarget = ns.args[1];
+    let connections = findServer(ns, findTarget);
+    let command = connectionCommands(connections);
+    ns.tprint(command);
   }
 
   if (action === "min") {
@@ -19,14 +26,26 @@ export function findServer(ns, server) {
   ns.tprint(`Find: ${server}`);
   let servers = ns.scan(server);
   let temp = servers;
+  let connections = [server];
 
   for (var i = 0; i < 15; i++) {
     ns.tprint(temp[0]);
     if (temp[0] == "home") {
       break;
     }
+    connections.push(temp[0]);
     temp = ns.scan(temp[0]);
   }
+  connections.reverse();
+  return connections;
+}
+
+function connectionCommands(connections) {
+  let command = "";
+  for (var i = 0; i < connections.length; i++) {
+    command += `connect ${connections[i]}; `;
+  }
+  return command;
 }
 
 function findProfit(ns) {
