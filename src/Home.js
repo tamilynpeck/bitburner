@@ -13,7 +13,7 @@ const HOME = "home";
 //   formulas: { name: "Formulas.exe", cost: 5000000000 },
 // };
 
-export class MyHome {
+export class Home {
   constructor(ns) {
     this.ns = ns;
     this.SCRIPTS = {
@@ -29,7 +29,7 @@ export class MyHome {
   }
 
   balance() {
-    return this.ns.getServerMaxMoney(HOME);
+    return this.ns.getServerMoneyAvailable(HOME);
   }
 
   haveScript(script) {
