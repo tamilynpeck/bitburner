@@ -1,16 +1,17 @@
-export function algorithmicStockTraderOne(input) {
+export function algorithmicStockTraderOne(ns, input) {
+  // check if min comes before max, if yes return diff
   return algorithmicStockTrader(ns, input, 1);
 }
 
-export function algorithmicStockTraderTwo(input) {
+export function algorithmicStockTraderTwo(ns, input) {
   return algorithmicStockTrader(ns, input, input.length);
 }
 
-export function algorithmicStockTraderThree(input) {
+export function algorithmicStockTraderThree(ns, input) {
   return algorithmicStockTrader(ns, input, 2);
 }
 
-export function algorithmicStockTraderFour(input) {
+export function algorithmicStockTraderFour(ns, input) {
   let maxTransactions = input[0];
   let stockPrices = input[1];
   return algorithmicStockTrader(ns, stockPrices, maxTransactions);

@@ -1,12 +1,14 @@
 /** @param {NS} ns */
 /** @param {import(".").NS} ns */
 
+import findLargestPrimeFactor from "./contracts/findLargestPrimeFactor.js";
 import subarrayWithMaximumSum from "./contracts/subarrayWithMaximumSum.js";
+import spiralizeMatrix from "./contracts/spiralizeMatrix.js";
+import arrayJumpingGame from "./contracts/arrayJumpingGame.js";
 import compressionTwoLZDecompression from "./contracts/compressionTwoLZDecompression.js";
 import encryptionOneCaesarCipher from "./contracts/encryptionOneCaesarCipher.js";
 import encryptionTwoVigenereCipher from "./contracts/encryptionTwoVigenereCipher.js";
 import mergeOverlapingIntervals from "./contracts/mergeOverlapingIntervals.js";
-import spiralizeMatrix from "./contracts/spiralizeMatrix.js";
 import generateIPAddresses from "./contracts/generateIPAddresses.js";
 import {
   totalWaystoSum,
@@ -20,12 +22,12 @@ import {
 } from "./contracts/algorithmicStockTrader.js";
 
 const CONTRACTS_MAP = {
-  "Find Largest Prime Factor": null,
+  "Find Largest Prime Factor": findLargestPrimeFactor,
   "Subarray with Maximum Sum": subarrayWithMaximumSum,
   "Total Ways to Sum": totalWaystoSum,
   "Total Ways to Sum II": totalWaystoSumTwo,
   "Spiralize Matrix": spiralizeMatrix,
-  "Array Jumping Game": null,
+  "Array Jumping Game": arrayJumpingGame,
   "Array Jumping Game II": null,
   "Merge Overlapping Intervals": mergeOverlapingIntervals,
   "Generate IP Addresses": generateIPAddresses,
@@ -52,5 +54,5 @@ const CONTRACTS_MAP = {
 // TODO: Factory pattern opportunity??
 export default function getContractFunction(ns, type, input) {
   let func = CONTRACTS_MAP[type];
-  return func(input);
+  return func(ns, input);
 }
