@@ -8,11 +8,11 @@ export async function main(ns) {
   let contracts = findContracts(ns);
 
   if (action === "find" && contracts.length > 0) {
+    contracts = sortByKey(contracts, "type");
+    ns.toast(`${contracts.length} Contracts Found`, "info", 10000);
     for (var i = 0; i < contracts.length; i++) {
-      ns.toast(
-        `${i}: ${contracts[i].type} Contract Found on ${contracts[i].server} ${contracts[i].name}`,
-        "info",
-        10000
+      ns.tprint(
+        `${i}: ${contracts[i].type} Contract Found on ${contracts[i].server} ${contracts[i].name}`
       );
     }
   }
@@ -27,6 +27,14 @@ export async function main(ns) {
       ns.tprint(answer);
     });
   }
+}
+
+function sortByKey(array, key) {
+  return array.sort(function (a, b) {
+    var x = a[key];
+    var y = b[key];
+    return x < y ? -1 : x > y ? 1 : 0;
+  });
 }
 
 export function findContracts(ns) {
@@ -49,7 +57,6 @@ function containsContract(ns, server, files) {
   for (var i = 0; i < files.length; i++) {
     if (files[i].includes(extention)) {
       let type = ns.codingcontract.getContractType(files[i], server);
-      ns.tprint(`${type} Contract Found on ${server} ${files[i]}`);
       contractList.push({ name: files[i], server: server, type: type });
     }
   }

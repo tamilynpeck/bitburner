@@ -2,13 +2,14 @@
 /** @param {import(".").NS} ns */
 import { configureHack } from "configure-hack.js";
 import { getServers } from "utils.js";
+// import { Gang } from "./gang/Gang.js";
 
 const MINUTE = 60000;
 const HOME = "home";
-const HOME_HACK = "afk-home-hack.js";
+const HOME_HACK = "home-hack.js";
 const SERVER_SETUP = "buy-servers.js";
 const PROGRAMS = "buy-programs.js";
-const CONTRACTS = "coding-contracts.js";
+const CONTRACTS = "Contracts.js";
 
 export async function main(ns) {
   if (!isHomeHackRunning(ns)) {
@@ -21,8 +22,14 @@ export async function main(ns) {
     ns.exec(PROGRAMS, HOME);
 
     if (min === 5) {
+      // server, check that hacking has made enough this run to buy servers...?
       ns.exec(SERVER_SETUP, HOME);
       ns.exec(CONTRACTS, HOME, 1, "find");
+
+      // if (ns.gang.inGang()) {
+      //   let gang = new Gang(ns);
+      //   gang.manage();
+      // }
 
       min = 0;
     }
