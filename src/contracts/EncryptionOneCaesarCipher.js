@@ -30,6 +30,7 @@ export default function encryptionOneCaesarCipher(ns, input) {
     "Y",
     "Z",
   ];
+  ns.tprint(input);
   let text = input[0];
   let key = input[1];
   ns.tprint(`Cipher: ${text} with key: ${key}`);
