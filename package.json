@@ -1,0 +1,22 @@
+{
+  "name": "bitburner",
+  "version": "1.0.0",
+  "description": "bitburner",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tamilynpeck/bitburner.git"
+  },
+  "author": "Tamilyn Peck",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tamilynpeck/bitburner/issues"
+  },
+  "homepage": "https://github.com/tamilynpeck/bitburner#readme",
+  "devDependencies": {
+    "jest": "^29.0.1"
+  }
+}
