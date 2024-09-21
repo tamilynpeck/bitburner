@@ -1,13 +1,19 @@
 /** @param {NS} ns */
 /** @param {import(".").NS} ns */
+import { HackingGang } from "./gang/HackingGang.js";
 
-import { Gang } from "./gang/Gang.js";
+const MINUTE = 60000;
 
 export async function main(ns) {
-  let gang = new Gang(ns);
-  gang.manage();
-  // myGang.info(true);
-  // gang.tasks();
+  let gang = new HackingGang(ns);
+  gang.tasks();
+
+  while (true) {
+    let gang = new HackingGang(ns);
+    gang.manage();
+    // break;
+    await ns.sleep(MINUTE);
+  }
 }
 
 // let ex = {

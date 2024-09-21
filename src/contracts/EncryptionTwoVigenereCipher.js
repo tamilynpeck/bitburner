@@ -1,1 +1,3 @@
-export default function encryptionTwoVigenereCipher(ns, input) {}
+export default function encryptionTwoVigenereCipher(input) {
+  return null;
+}

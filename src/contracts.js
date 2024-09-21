@@ -1,7 +1,7 @@
 /** @param {NS} ns */
 /** @param {import(".").NS} ns */
 import { getServers } from "utils.js";
-import getContractFunction from "./contracts/getContractFunction.js";
+import getContractFunction from "./contracts/GetContractFunction.js";
 
 export async function main(ns) {
   const action = ns.args[0];
@@ -11,21 +11,19 @@ export async function main(ns) {
     contracts = sortByKey(contracts, "type");
     ns.toast(`${contracts.length} Contracts Found`, "info", 10000);
     for (var i = 0; i < contracts.length; i++) {
-      ns.tprint(
-        `${i}: ${contracts[i].type} Contract Found on ${contracts[i].server} ${contracts[i].name}`
-      );
-    }
-  }
-
-  if (action === "caesar") {
-    let type = "Encryption I: Caesar Cipher";
-    let caesarContracts = contracts.filter(byType(type));
-    caesarContracts.forEach((item) => {
-      let input = ns.codingcontract.getData(item.name, item.server);
+      let type = contracts[i].type;
+      let server = contracts[i].server;
+      let name = contracts[i].name;
+      ns.tprint(`${i}: ${type} Contract Found on ${server} ${name}`);
+      let input = ns.codingcontract.getData(name, server);
       let answer = getContractFunction(ns, type, input);
-      ns.tprint(item.name, " ", item.server);
-      ns.tprint(answer);
-    });
+      if (answer) {
+        let reward = ns.codingcontract.attempt(answer, name, server, {
+          returnReward: true,
+        });
+        ns.tprint(reward);
+      }
+    }
   }
 }
 

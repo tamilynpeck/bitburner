@@ -1,5 +1,6 @@
 //https://www.geeksforgeeks.org/program-generate-possible-valid-ip-addresses-given-string/
-export default function generateIPAddresses(ns, input) {
+export default function generateIPAddresses(input) {
+  return null;
   return "[193.87.180.66]";
 }
 

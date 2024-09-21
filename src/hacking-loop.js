@@ -23,7 +23,12 @@ export async function main(ns) {
       await ns.hack(target);
       let income = ns.getScriptIncome();
       let type = income > 0 ? "success" : "error";
-      ns.toast(`${host} - ${target} - ${formatter.format(income)}`, type, 5000);
+      if (income > 1000000000 || type == "error")
+        ns.toast(
+          `${host} - ${target} - ${formatter.format(income)}`,
+          type,
+          5000
+        );
     }
   }
 }

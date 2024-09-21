@@ -1,7 +1,4 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-
-export default function spiralizeMatrix(ns, input) {
+export default function spiralizeMatrix(input) {
   // const input = [
   //   [41, 32, 29, 17, 47, 21, 12, 13, 18, 4],
   //   [33, 8, 2, 21, 9, 20, 45, 27, 42, 19],
@@ -14,4 +11,5 @@ export default function spiralizeMatrix(ns, input) {
   // ];
 
   const result = [41, 32, 29, 17, 47, 21, 12, 13, 18, 4];
+  return null;
 }

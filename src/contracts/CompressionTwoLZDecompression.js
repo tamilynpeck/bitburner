@@ -1,7 +1,9 @@
 /** @param {NS} ns */
 /** @param {import(".").NS} ns */
 
-export default function compressionTwoLZDecompression(ns, input) {}
+export default function compressionTwoLZDecompression(input) {
+  return null;
+}
 // "Compression II: LZ Decompression"
 // 6koYCCV 23 3Jhs 94 361J 85 26L 41 9iE6B2O8Wv 0 6c63Ohv 72 0 31 9FIbVQ3Bkd 0 2Zs
 // koYCCV

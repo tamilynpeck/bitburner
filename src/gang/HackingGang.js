@@ -1,14 +1,14 @@
 /** @param {NS} ns */
 /** @param {import(".").NS} ns */
-import { GangMember } from "./gang/GangMember.js";
+import { HackingGangMember } from "./gang/HackingGangMember.js";
 import { GangTasks, padding } from "./gang/utils.js";
 
-export class Gang {
-  constructor(ns, faction = "Slum Snakes") {
+export class HackingGang {
+  constructor(ns, faction = "NiteSec") {
     this.ns = ns;
     this.gang = ns.gang;
     if (!ns.gang.inGang()) this.gang.createGang(faction);
-    this.type = "Combat";
+    this.type = "Hacking";
   }
 
   info(print = false) {
@@ -28,10 +28,11 @@ export class Gang {
       let newName = `homey-dude-${memberCount}`;
       let newMemeber = this.gang.recruitMember(newName);
       if (newMemeber) {
-        let member = new GangMember(this.ns, newName);
+        let member = new HackingGangMember(this.ns, newName);
         this.ns.toast(`GANG: Recruited New Member" ${newName}`);
         member.train(GangTasks.TRAIN_HACKING);
       }
+      this.recruit();
     }
   }
 
@@ -41,21 +42,10 @@ export class Gang {
 
     for (var i = 0; i < members.length; i++) {
       let name = members[i];
-      let member = new GangMember(this.ns, name);
+      let member = new HackingGangMember(this.ns, name);
       // this.ns.tprint(member.info());
 
       member.manage();
-
-      // if (
-      //   member.task == GangTasks.TRAIN_COMBAT &&
-      //   member.str > 150 * member.str_asc_mult
-      // ) {
-      //   this.train(name, GangTasks.TRAIN_CHARISMA);
-      // }
-
-      // train
-      // upgrade tasks... when...
-      // buy equipment, vehicals, etc.
     }
   }
 

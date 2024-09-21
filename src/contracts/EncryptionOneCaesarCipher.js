@@ -1,7 +1,4 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-
-export default function encryptionOneCaesarCipher(ns, input) {
+export default function encryptionOneCaesarCipher(input) {
   const letters = [
     "A",
     "B",
@@ -30,10 +27,9 @@ export default function encryptionOneCaesarCipher(ns, input) {
     "Y",
     "Z",
   ];
-  ns.tprint(input);
   let text = input[0];
   let key = input[1];
-  ns.tprint(`Cipher: ${text} with key: ${key}`);
+  // ns.tprint(`Cipher: ${text} with key: ${key}`);
 
   let cipheredText = "";
   text.split("").forEach((letter) => {

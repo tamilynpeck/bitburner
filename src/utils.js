@@ -97,3 +97,38 @@ export function higestHackableServer(ns) {
     return maxServer;
   }
 }
+
+export function findServer(ns, server) {
+  ns.tprint(`Find: ${server}`);
+  let servers = ns.scan(server);
+  let temp = servers;
+  let connections = [server];
+
+  for (var i = 0; i < 15; i++) {
+    // ns.tprint(temp[0]);
+    if (temp[0] == "home") {
+      break;
+    }
+    connections.push(temp[0]);
+    temp = ns.scan(temp[0]);
+  }
+  if (connections.length == 1) return [];
+  connections.reverse();
+  return connections;
+}
+
+export async function backdoor(ns, server) {
+  let connections = findServer(ns, server);
+  // ns.tprint(connections);
+  for (var i = 0; i < connections.length; i++) {
+    let serverName = connections[i];
+    if (!serverName) break;
+    // ns.tprint(`Connect: ${connections[i]}`);
+    ns.singularity.connect(connections[i]);
+    if (i == connections.length - 1 && ns.hasRootAccess(connections[i])) {
+      ns.tprint(`Backdoor: ${connections[i]}`);
+      await ns.singularity.installBackdoor();
+    }
+  }
+  ns.singularity.connect("home");
+}

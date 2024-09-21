@@ -1,20 +1,20 @@
-export function algorithmicStockTraderOne(ns, input) {
+export function algorithmicStockTraderOne(input) {
   // check if min comes before max, if yes return diff
-  return algorithmicStockTrader(ns, input, 1);
+  return algorithmicStockTrader(input, 1);
 }
 
-export function algorithmicStockTraderTwo(ns, input) {
-  return algorithmicStockTrader(ns, input, input.length);
+export function algorithmicStockTraderTwo(input) {
+  return algorithmicStockTrader(input, input.length);
 }
 
-export function algorithmicStockTraderThree(ns, input) {
-  return algorithmicStockTrader(ns, input, 2);
+export function algorithmicStockTraderThree(input) {
+  return algorithmicStockTrader(input, 2);
 }
 
-export function algorithmicStockTraderFour(ns, input) {
+export function algorithmicStockTraderFour(input) {
   let maxTransactions = input[0];
   let stockPrices = input[1];
-  return algorithmicStockTrader(ns, stockPrices, maxTransactions);
+  return algorithmicStockTrader(stockPrices, maxTransactions);
 }
 
 function algorithmicStockTrader(stockPrices, maxTransactions) {
@@ -29,6 +29,7 @@ function algorithmicStockTrader(stockPrices, maxTransactions) {
       total -= stockPrices[i];
     }
   }
+  let result = "todo";
 
-  return result;
+  return null;
 }

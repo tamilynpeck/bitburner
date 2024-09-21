@@ -1,4 +1,4 @@
-import generateIPAddresses from "generateIPAddresses.js";
+import { generateIPAddresses } from "GenerateIPAddresses.js";
 
 // 25525511135 -> [255.255.11.135, 255.255.111.35]
 // 1938718066 -> [193.87.180.66]

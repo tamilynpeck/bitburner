@@ -1,6 +1,6 @@
 /** @param {NS} ns */
 /** @param {import(".").NS} ns */
-import { isHackable, getServers } from "utils.js";
+import { isHackable, getServers, findServer } from "utils.js";
 
 export async function main(ns) {
   const action = ns.args[0];
@@ -24,24 +24,6 @@ export async function main(ns) {
 export function getServerConnection(ns, server) {
   let connections = findServer(ns, server);
   return connectionCommands(connections);
-}
-
-export function findServer(ns, server) {
-  ns.tprint(`Find: ${server}`);
-  let servers = ns.scan(server);
-  let temp = servers;
-  let connections = [server];
-
-  for (var i = 0; i < 15; i++) {
-    ns.tprint(temp[0]);
-    if (temp[0] == "home") {
-      break;
-    }
-    connections.push(temp[0]);
-    temp = ns.scan(temp[0]);
-  }
-  connections.reverse();
-  return connections;
 }
 
 function connectionCommands(connections) {

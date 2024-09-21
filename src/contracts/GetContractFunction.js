@@ -1,25 +1,25 @@
 /** @param {NS} ns */
 /** @param {import(".").NS} ns */
 
-import findLargestPrimeFactor from "./contracts/findLargestPrimeFactor.js";
-import subarrayWithMaximumSum from "./contracts/subarrayWithMaximumSum.js";
-import spiralizeMatrix from "./contracts/spiralizeMatrix.js";
-import arrayJumpingGame from "./contracts/arrayJumpingGame.js";
-import compressionTwoLZDecompression from "./contracts/compressionTwoLZDecompression.js";
-import encryptionOneCaesarCipher from "./contracts/encryptionOneCaesarCipher.js";
-import encryptionTwoVigenereCipher from "./contracts/encryptionTwoVigenereCipher.js";
-import mergeOverlapingIntervals from "./contracts/mergeOverlapingIntervals.js";
-import generateIPAddresses from "./contracts/generateIPAddresses.js";
+import findLargestPrimeFactor from "./contracts/FindLargestPrimeFactor.js";
+import subarrayWithMaximumSum from "./contracts/SubarrayWithMaximumSum.js";
+import spiralizeMatrix from "./contracts/SpiralizeMatrix.js";
+import arrayJumpingGame from "./contracts/ArrayJumpingGame.js";
+import compressionTwoLZDecompression from "./contracts/CompressionTwoLZDecompression.js";
+import encryptionOneCaesarCipher from "./contracts/EncryptionOneCaesarCipher.js";
+import encryptionTwoVigenereCipher from "./contracts/EncryptionTwoVigenereCipher.js";
+import mergeOverlapingIntervals from "./contracts/MergeOverlapingIntervals.js";
+import generateIPAddresses from "./contracts/GenerateIPAddresses.js";
 import {
   totalWaystoSum,
   totalWaystoSumTwo,
-} from "./contracts/totalWaystoSum.js";
+} from "./contracts/TotalWaystoSum.js";
 import {
   algorithmicStockTraderOne,
   algorithmicStockTraderTwo,
   algorithmicStockTraderThree,
   algorithmicStockTraderFour,
-} from "./contracts/algorithmicStockTrader.js";
+} from "./contracts/AlgorithmicStockTrader.js";
 
 const CONTRACTS_MAP = {
   "Find Largest Prime Factor": findLargestPrimeFactor,
@@ -54,5 +54,8 @@ const CONTRACTS_MAP = {
 // TODO: Factory pattern opportunity??
 export default function getContractFunction(ns, type, input) {
   let func = CONTRACTS_MAP[type];
-  return func(ns, input);
+  if (!func) return null;
+  let result = func(input);
+  if (result) ns.tprint(result);
+  return result;
 }

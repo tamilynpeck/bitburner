@@ -12,10 +12,12 @@ export async function main(ns) {
   let target = "";
   let upgradeServers = [];
 
+  // server, check that hacking has made enough this run to buy servers...?
+
   if (purchasedServers.length === serverLimit) {
     ns.toast("25/25 Servers!", "success");
   }
-  // purchasedServers.forEach
+
   for (var i = 0; i < purchasedServers.length; i++) {
     server = purchasedServers[i];
     let result = checkForUpgrade(ns, server, ram);
@@ -24,6 +26,7 @@ export async function main(ns) {
 
   for (var i = 0; i < servers.length; i++) {
     purchasedServers = ns.getPurchasedServers();
+    // ns.tprint(`Upgrade servers: ${upgradeServers}`);
     if (purchasedServers.length === serverLimit && upgradeServers.length > 0) {
       ns.tprint(upgradeServers);
       deleteServer(ns, upgradeServers[0].currentName);
@@ -104,6 +107,9 @@ function calcMaxRamSize(ns) {
   }
   if (money >= 131072 * 55000 * 25 * 2) {
     ram = 131072;
+  }
+  if (money >= 262144 * 55000 * 25 * 5) {
+    ram = 262144;
   }
   return ram;
 }
