@@ -1,0 +1,312 @@
+API BREAK INFO FOR 3.0.0
+
+You cannot use the deprecated VSCode extension to connect to the Steam app via API server now. You have to use Remote API to connect your external editors to Bitburner.
+For more information, please check the Remote API page in the Documentation tab. If you have a question, please ask us on #external-editors on Discord (https://discord.gg/TFc3hKD).
+
+
+
+With some APIs, when you passed values to their params, you could pass a value that was not an exact match. For example, with ns.singularity.commitCrime, you could pass "Rob Store", "rob store", "RobStore", "robstore", "robStore", etc. This is called "fuzzy matching". Now, you must pass an exact value (i.e., Rob Store). This change affects:
+- Bladeburner action and type: BladeburnerActionType, BladeburnerGeneralActionName, BladeburnerContractName, BladeburnerOperationName, BladeburnerBlackOpName, SpecialBladeburnerActionTypeForSleeve, BladeburnerActionTypeForSleeve.
+- Crime: CrimeType
+- Faction work: FactionWorkType
+- University class: UniversityClassType
+- Gym stat: GymType
+- Job field: JobField
+- Stock position: PositionType
+- Stock order: OrderType
+You can access these values via ns.enums and Bladeburner APIs.
+
+
+
+ns.nuke, ns.brutessh, ns.ftpcrack, ns.relaysmtp, ns.httpworm, and ns.sqlinject now do not throw an error when you do not have the required .exe file or enough opened ports.
+This should not be a problem with most scripts. However, if you were catching errors and branching on the result of success/failure, you will need to use the return value instead.
+
+Usage of the following functions may have been affected:
+ns.nuke
+ns.brutessh
+ns.ftpcrack
+ns.relaysmtp
+ns.httpworm
+ns.sqlinject
+
+Potentially affected files on server home (with line numbers):
+nuke.js: (Line numbers: 14, 18, 22, 26, 30, 36)
+Home.js: (Line numbers: 21, 22)
+
+
+
+Some APIs returned a default value when you passed the hostname of a non-hackable server (e.g., hacknet server) to them.
+These APIs now throw an error. The affected APIs are:
+- ns.hackAnalyzeThreads
+- ns.hackAnalyze
+- ns.hackAnalyzeSecurity
+- ns.hackAnalyzeChance
+- ns.growthAnalyze
+- ns.growthAnalyzeSecurity
+- ns.nuke
+- ns.brutessh
+- ns.ftpcrack
+- ns.relaysmtp
+- ns.httpworm
+- ns.sqlinject
+- ns.getServerMoneyAvailable
+- ns.getServerSecurityLevel
+- ns.getServerBaseSecurityLevel
+- ns.getServerMinSecurityLevel
+- ns.getServerRequiredHackingLevel
+- ns.getServerMaxMoney
+- ns.getServerGrowth
+- ns.getServerNumPortsRequired
+- ns.cloud.deleteServer
+- ns.getHackTime
+- ns.getGrowTime
+- ns.getWeakenTime
+
+
+Usage of the following functions may have been affected:
+ns.hackAnalyzeThreads
+ns.hackAnalyze
+ns.hackAnalyzeSecurity
+ns.hackAnalyzeChance
+ns.growthAnalyze
+ns.growthAnalyzeSecurity
+ns.nuke
+ns.brutessh
+ns.ftpcrack
+ns.relaysmtp
+ns.httpworm
+ns.sqlinject
+ns.getServerMoneyAvailable
+ns.getServerSecurityLevel
+ns.getServerBaseSecurityLevel
+ns.getServerMinSecurityLevel
+ns.getServerRequiredHackingLevel
+ns.getServerMaxMoney
+ns.getServerGrowth
+ns.getServerNumPortsRequired
+ns.deleteServer
+ns.getHackTime
+ns.getGrowTime
+ns.getWeakenTime
+
+Potentially affected files on server home (with line numbers):
+buy-programs.js: (Line number: 107)
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+nuke.js: (Line numbers: 8, 14, 18, 22, 26, 30, 36)
+configure-hack.js: (Line number: 19)
+server-list.js: (Line numbers: 51, 52, 65, 81, 82)
+buy-servers.js: (Line numbers: 56, 74, 118, 132)
+utils.js: (Line numbers: 49, 63, 67, 91, 92)
+home-hack.js: (Line numbers: 28, 31, 37, 45, 47)
+Home.js: (Line numbers: 21, 22, 32)
+gym.js: (Line number: 66)
+gang/GangMember.js: (Line number: 27)
+factions.js: (Line number: 94)
+backdoor.js: (Line number: 7)
+upgrades.js: (Line number: 5)
+gang/GangMember-copy.js: (Line number: 27)
+gang/HackingGangMember.js: (Line number: 32)
+gym-copy.js: (Line number: 55)
+
+Potentially affected files on server rho-construction (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server rothman-uni (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server summit-uni (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server catalyst (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server the-hub (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server netlink (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server n00dles (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server foodnstuff (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server sigma-cosmetics (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server joesguns (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server zer0 (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server nectar-net (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server neo-net (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server silver-helix (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server hong-fang-tea (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server harakiri-sushi (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server phantasy (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server max-hardware (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server omega-net (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server iron-gym (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+Potentially affected files on server millenium-fitness (with line numbers):
+hacking-loop.js: (Line numbers: 7, 8, 18, 20)
+
+
+
+Some gang equipments were renamed.
+- "Glock 18C" was renamed to "Malorian-3516".
+- "P90C" was renamed to "Hansen-HA7".
+- "Steyr AUG" was renamed to "Arasaka-HJSH18".
+- "AK-47" was renamed to "Militech-M251s".
+- "M15A10 Assault Rifle" was renamed to "Nokota-D5".
+- "AWM Sniper Rifle" was renamed to "Techtronika-SPT32".
+- "Ford Flex V20" was renamed to "Herrera Outlaw GTS".
+- "ATX1070 Superbike" was renamed to "Yaiba ASM-R250 Muramasa".
+- "Mercedes-Benz S9001" was renamed to "Rayfield Caliburn".
+- "White Ferrari" was renamed to "Quadra Sport R-7".
+
+
+Usage of the following functions may have been affected:
+Glock 18C
+P90C
+Steyr AUG
+AK-47
+M15A10 Assault Rifle
+AWM Sniper Rifle
+Ford Flex V20
+ATX1070 Superbike
+Mercedes-Benz S9001
+White Ferrari
+
+Potentially affected files on server home (with line numbers):
+Gang.js: (Line numbers: 69, 69)
+gangs.js: (Line numbers: 69, 69)
+
+
+
+The cloud server (purchased server) functions have been moved to their own interface, ns.cloud.
+"ns.getPurchasedServerCost()" was removed.
+It has been automatically replaced with "ns.cloud.getServerCost()"
+
+"ns.purchaseServer()" was removed.
+It has been automatically replaced with "ns.cloud.purchaseServer()"
+
+"ns.getPurchasedServerUpgradeCost()" was removed.
+It has been automatically replaced with "ns.cloud.getServerUpgradeCost()"
+
+"ns.upgradePurchasedServer()" was removed.
+It has been automatically replaced with "ns.cloud.upgradeServer()"
+
+"ns.renamePurchasedServer()" was removed.
+It has been automatically replaced with "ns.cloud.renameServer()"
+
+"ns.deleteServer()" was removed.
+It has been automatically replaced with "ns.cloud.deleteServer()"
+
+"ns.getPurchasedServers()" was removed.
+It has been automatically replaced with "ns.cloud.getServerNames()"
+
+"ns.getPurchasedServerLimit()" was removed.
+It has been automatically replaced with "ns.cloud.getServerLimit()"
+
+"ns.getPurchasedServerMaxRam()" was removed.
+It has been automatically replaced with "ns.cloud.getRamLimit()"
+
+Usage of the following functions may have been affected:
+ns.getPurchasedServerCost
+ns.purchaseServer
+ns.getPurchasedServerUpgradeCost
+ns.upgradePurchasedServer
+ns.renamePurchasedServer
+ns.deleteServer
+ns.getPurchasedServers
+ns.getPurchasedServerLimit
+ns.getPurchasedServerMaxRam
+
+Potentially affected files on server home (with line numbers):
+buy-servers.js: (Line numbers: 8, 10, 28, 57, 67, 120, 132)
+restart-servers.js: (Line number: 6)
+
+
+
+We added a new feature called Dark Net. The "darkweb" server is a darknet server now.
+Some APIs that require the target host to be a normal server do not work with darkweb. This should not be a 
+problem with most scripts. The most potentially affected API is "ns.scan()". Darkweb does not appear in the 
+result of this API anymore. If you want to find darknet servers, you need to use "ns.dnet.probe()".
+
+
+
+ns.cloud.purchaseServer() and ns.cloud.deleteServer() previously removed whitespace from the provided hostname inconsistently.
+They now use the hostname as provided.
+
+Usage of the following functions may have been affected:
+ns.cloud.purchaseServer
+ns.cloud.deleteServer
+
+Potentially affected files on server home (with line numbers):
+buy-servers.js: (Line numbers: 67, 132)
+
+
+
+If you pass a string to ns.codingcontract.attempt() for contracts that require a non-string answer, the
+game will convert that string to the expected format. This string conversion was inconsistent and had many
+undocumented behaviors. Now the rules are consistent and well-documented. Please check the "Coding Contracts"
+page for more information.
+There are 7 contracts that are affected by this change:
+- Find All Valid Math Expressions
+- Generate IP Addresses
+- Largest Rectangle in a Matrix
+- Merge Overlapping Intervals
+- Proper 2-Coloring of a Graph
+- Sanitize Parentheses in Expression
+- Spiralize Matrix
+Note that this change only affects the string conversion. The solution format of these contracts is an array,
+so if you pass the solution, which is an array, as is, you will not have any problems.
+If your code converts the array to a string, you should check these contracts, especially the "Sanitize
+Parentheses in Expression" contract and others that require a string array.
+- Sanitize Parentheses in Expression: Previously, if you passed an empty string to this contract, it was
+converted to an array containing an empty string. Now, it's converted to an empty array.
+- Read the "General rules", "String conversion", and "Tips" sections on the "Coding Contracts" page carefully.
+
+Usage of the following functions may have been affected:
+ns.codingcontract.attempt
+FindAllValidMathExpressions
+GenerateIPAddresses
+LargestRectangleInAMatrix
+MergeOverlappingIntervals
+Proper2ColoringOfAGraph
+SanitizeParenthesesInExpression
+SpiralizeMatrix
+Find All Valid Math Expressions
+Generate IP Addresses
+Largest Rectangle in a Matrix
+Merge Overlapping Intervals
+Proper 2-Coloring of a Graph
+Sanitize Parentheses in Expression
+Spiralize Matrix
+
+Potentially affected files on server home (with line numbers):
+contracts/utils.js: (Line numbers: 24, 27, 28, 37, 38, 41)
+contracts.js: (Line number: 21)
+contracts/GetContractFunction.js: (Line numbers: 6, 12, 29, 32, 33, 42, 43, 46)
+contracts/GenerateIPAddresses.test.js: (Line number: 1)

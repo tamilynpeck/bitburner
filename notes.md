@@ -2,7 +2,8 @@
 
 ## Next
 
-- [ ] Update to new version
+- [ ] V2 Breaking Changes
+- [ ] V3 Breaking Changes
 - [ ] Add more tests
 - [ ] GitHub Actions for Tests?
 

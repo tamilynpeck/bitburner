@@ -1,0 +1,20 @@
+This file contains the list of potential API break. A pattern was used to look through all your files and note the spots where you might have a problem. Not everything here is broken./ns\.scp/g
+scp arguments were switch, it is now scp(files, destination, optionally_source). If you were using 2 argument (not 3) this doesn't affect you.
+
+	configure-hack.js
+		Line 35 await ns.scp(script, scriptServer, hostServer);
+
+
+/hacking/g
+The work system is completely reworked and ns.getPlayer().hacking no longer exists. This data is likely available inside ns.getPlayer().currentWork, skills, exp, or hp
+
+	configure-hack.js
+		Line 32 const script = "hacking-loop.js";
+	utils.js
+		Line 8 //isWorthhacking?
+	afk-home-hack.js
+		Line 14 await hackingLoop(ns, target);
+		Line 20 async function hackingLoop(ns, target) {
+		Line 31 // moneyAvailable % threadshold lower when hacking level is lower
+
+
