@@ -17,6 +17,21 @@
   },
   "homepage": "https://github.com/tamilynpeck/bitburner#readme",
   "devDependencies": {
+    "@babel/preset-env": "^7.18.10",
+    "babel-jest": "^29.0.1",
     "jest": "^29.0.1"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>",
+      "src"
+    ],
+    "modulePaths": [
+      "<rootDir>/src/"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
   }
 }

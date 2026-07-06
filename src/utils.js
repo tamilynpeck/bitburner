@@ -76,7 +76,7 @@ export function isHackable(ns, target, onTargetServer = false) {
 }
 
 // identify highest hackable server...
-export function higestHackableServer(ns) {
+export function highestHackableServer(ns) {
   const servers = unique_server_list(ns);
   let maxServer = "";
   let maxAmount = 0;
