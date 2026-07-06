@@ -1,25 +1,24 @@
 /** @param {NS} ns */
-/** @param {import(".").NS} ns */
 
-import findLargestPrimeFactor from "./contracts/FindLargestPrimeFactor.js";
-import subarrayWithMaximumSum from "./contracts/SubarrayWithMaximumSum.js";
-import spiralizeMatrix from "./contracts/SpiralizeMatrix.js";
-import arrayJumpingGame from "./contracts/ArrayJumpingGame.js";
-import compressionTwoLZDecompression from "./contracts/CompressionTwoLZDecompression.js";
-import encryptionOneCaesarCipher from "./contracts/EncryptionOneCaesarCipher.js";
-import encryptionTwoVigenereCipher from "./contracts/EncryptionTwoVigenereCipher.js";
-import mergeOverlapingIntervals from "./contracts/MergeOverlapingIntervals.js";
-import generateIPAddresses from "./contracts/GenerateIPAddresses.js";
+import findLargestPrimeFactor from "./FindLargestPrimeFactor.js";
+import subarrayWithMaximumSum from "./SubarrayWithMaximumSum.js";
+import spiralizeMatrix from "./SpiralizeMatrix.js";
+import arrayJumpingGame from "./ArrayJumpingGame.js";
+import compressionTwoLZDecompression from "./CompressionTwoLZDecompression.js";
+import encryptionOneCaesarCipher from "./EncryptionOneCaesarCipher.js";
+import encryptionTwoVigenereCipher from "./EncryptionTwoVigenereCipher.js";
+import mergeOverlapingIntervals from "./MergeOverlapingIntervals.js";
+import generateIPAddresses from "./GenerateIPAddresses.js";
 import {
   totalWaystoSum,
   totalWaystoSumTwo,
-} from "./contracts/TotalWaystoSum.js";
+} from "./TotalWaystoSum.js";
 import {
   algorithmicStockTraderOne,
   algorithmicStockTraderTwo,
   algorithmicStockTraderThree,
   algorithmicStockTraderFour,
-} from "./contracts/AlgorithmicStockTrader.js";
+} from "./AlgorithmicStockTrader.js";
 
 const CONTRACTS_MAP = {
   "Find Largest Prime Factor": findLargestPrimeFactor,

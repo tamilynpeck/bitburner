@@ -1,7 +1,6 @@
 /** @param {NS} ns */
-/** @param {import(".").NS} ns */
-import { HackingGangMember } from "./gang/HackingGangMember.js";
-import { GangTasks, padding } from "./gang/utils.js";
+import { HackingGangMember } from "./HackingGangMember.js";
+import { GangTasks, padding } from "./utils.js";
 
 export class HackingGang {
   constructor(ns, faction = "NiteSec") {
@@ -26,8 +25,8 @@ export class HackingGang {
     if (this.gang.canRecruitMember()) {
       let memberCount = this.members().length + 1;
       let newName = `homey-dude-${memberCount}`;
-      let newMemeber = this.gang.recruitMember(newName);
-      if (newMemeber) {
+      let newMember = this.gang.recruitMember(newName);
+      if (newMember) {
         let member = new HackingGangMember(this.ns, newName);
         this.ns.toast(`GANG: Recruited New Member" ${newName}`);
         member.train(GangTasks.TRAIN_HACKING);

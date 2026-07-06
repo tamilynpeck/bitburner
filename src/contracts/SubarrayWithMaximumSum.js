@@ -1,6 +1,3 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-
 export default function subarrayWithMaximumSum(input) {
   // Given an array of integers, find the contiguous subarray (containing
   //     at least one number) which has the largest sum and return that sum.

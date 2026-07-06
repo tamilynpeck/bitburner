@@ -1,6 +1,3 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-
 export const GangTasks = {
   UNASSIGNED: "Unassigned",
   TRAIN_COMBAT: "Train Combat",

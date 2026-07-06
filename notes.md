@@ -2,10 +2,15 @@
 
 ## Next
 
-- [ ] V2 Breaking Changes
 - [ ] V3 Breaking Changes
-- [ ] Add more tests
+- [ ] Type Script?
+- [ ] Finish Contracts & Tests
+
+- [ ] Add more tests?
 - [ ] GitHub Actions for Tests?
+- [ ] Notes on how to run the files in the game.
+
+- [ ] Hacknet Node Functionality?
 
 ## Refactor Ideas
 

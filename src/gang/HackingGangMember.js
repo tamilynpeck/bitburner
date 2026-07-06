@@ -1,8 +1,7 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-import { GangTasks } from "./gang/utils.js";
+import { GangTasks } from "./utils.js";
 
 export class HackingGangMember {
+  /** @param {NS} ns */
   constructor(ns, name) {
     this.ns = ns;
     this.gang = ns.gang;
@@ -41,7 +40,7 @@ export class HackingGangMember {
     }
   }
 
-  shouldAscend(mult = 1.5) {
+  shouldAscend(multiplier = 1.5) {
     let result = this.gang.getAscensionResult(this.name);
     if (!result) return false;
     let points = 0;
@@ -49,7 +48,7 @@ export class HackingGangMember {
 
     stats.forEach((stat) => {
       // this.ns.tprint(`${this.name}: ${stat} @ ${result[stat]}!`);
-      if (result[stat] >= mult) points += 1;
+      if (result[stat] >= multiplier) points += 1;
     });
     // this.ns.tprint(`${this.name}: has ${points} ascension points ready!`);
     return points == 2;

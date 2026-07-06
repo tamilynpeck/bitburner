@@ -1,7 +1,5 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-import { configureHack } from "configure-hack.js";
-import { getServers } from "utils.js";
+import { configureHack } from "./configure-hack.js";
+import { getServers } from "./utils.js";
 
 const MINUTE = 60000;
 const HOME = "home";
@@ -11,6 +9,7 @@ const PROGRAMS = "buy-programs.js";
 const CONTRACTS = "contracts.js";
 const UPGRADES = "upgrades.js";
 
+/** @param {NS} ns */
 export async function main(ns) {
   runHomeHack(ns);
 
@@ -22,6 +21,7 @@ export async function main(ns) {
   }
 }
 
+/** @param {NS} ns */
 function runHomeHack(ns) {
   const ramNeeded = ns.getScriptRam(HOME_HACK, HOME);
   const maxRam = ns.getServerMaxRam(HOME);
@@ -36,6 +36,7 @@ function runHomeHack(ns) {
   }
 }
 
+/** @param {NS} ns */
 async function setup(ns) {
   const servers = getServers(ns);
 

@@ -1,13 +1,12 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-
 const MINUTE = 60000;
 
+/** @param {NS} ns */
 export async function main(ns) {
-  let maxLevel = ns.args[0] ? ns.args[0] : 30;
+  let maxLevel = ns.args[0] ? Number(ns.args[0]) : 30;
   await gym(ns, maxLevel);
 }
 
+/** @param {NS} ns */
 export async function gym(ns, maxLevel = 30) {
   while (true) {
     let player = ns.getPlayer();
@@ -26,29 +25,29 @@ export async function gym(ns, maxLevel = 30) {
     }
 
     // def setFocus(ns) = is busy ?  true : false
-
-    let gym = pickGym(ns);
+    const GymType = ns.enums.GymType;
+    const gym = pickGym(ns);
     ns.tprint(`Gym at: ${gym}`);
     if (skills.strength < maxLevel) {
-      ns.singularity.gymWorkout(gym, "Strength", setFocus(ns));
+      ns.singularity.gymWorkout(gym, GymType.strength, setFocus(ns));
       await ns.sleep(MINUTE);
     }
     if (skills.defense < maxLevel) {
-      ns.singularity.gymWorkout(gym, "Defense", setFocus(ns));
+      ns.singularity.gymWorkout(gym, GymType.defense, setFocus(ns));
       await ns.sleep(MINUTE);
     }
     if (skills.dexterity < maxLevel) {
-      ns.singularity.gymWorkout(gym, "Dexterity", setFocus(ns));
+      ns.singularity.gymWorkout(gym, GymType.dexterity, setFocus(ns));
       await ns.sleep(MINUTE);
     }
     if (skills.agility < maxLevel) {
-      ns.singularity.gymWorkout(gym, "Agility", setFocus(ns));
+      ns.singularity.gymWorkout(gym, GymType.agility, setFocus(ns));
       await ns.sleep(MINUTE);
     }
     if (skills.charisma < skills.strength) {
       ns.singularity.universityCourse(
-        "Rothman University",
-        "Leadership",
+        ns.enums.LocationName.Sector12RothmanUniversity,
+        ns.enums.UniversityClassType.leadership,
         setFocus(ns)
       );
       await ns.sleep(MINUTE);
@@ -56,14 +55,16 @@ export async function gym(ns, maxLevel = 30) {
   }
 }
 
+/** @param {NS} ns */
 function setFocus(ns) {
   let focused = ns.singularity.isFocused();
   return focused ? true : false;
 }
 
+/** @param {NS} ns */
 function pickGym(ns) {
-  return "powerhouse gym";
+  return ns.enums.LocationName.Sector12PowerhouseGym;
   let money = ns.getServerMoneyAvailable("home");
-  if (money > 1000000) return "powerhouse gym";
-  return "iron gym";
+  if (money > 1000000) return ns.enums.LocationName.Sector12PowerhouseGym;
+  return ns.enums.LocationName.Sector12IronGym;
 }

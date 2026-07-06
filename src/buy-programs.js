@@ -1,8 +1,6 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-import { Home } from "Home.js";
+import { Home } from "./Home.js";
 // import { getServerConnection } from "server-list.js";
-import { backdoor } from "utils.js";
+import { backdoor } from "./utils.js";
 
 // TODO: minHackLevel changes...? dynamically call
 const PORT_SCRIPTS = {
@@ -64,16 +62,18 @@ const FACTION_SERVERS = {
   w0r1d_d43m0n: {
     serverName: "w0r1d_d43m0n",
     name: "w0r1d_d43m0n",
+    isHackable: false,
     scriptRequired: "sql",
     // red pill required?
   },
 };
 
+/** @param {NS} ns */
 export async function main(ns) {
   const home = new Home(ns);
   const money = home.balance();
   const hackLevel = ns.getHackingLevel();
-  const player = ns.getPlayer();
+  // const player = ns.getPlayer();
 
   // if (!player.tor && money >= darkweb.cost * 1.5) {
   //   let result = ns.singularity.purchaseTor();
@@ -104,6 +104,9 @@ export async function main(ns) {
 
   for (var key in FACTION_SERVERS) {
     let serverName = FACTION_SERVERS[key].serverName;
+    if (FACTION_SERVERS[key].isHackable == false) {
+      continue;
+    }
     let requiredHackLevel = ns.getServerRequiredHackingLevel(serverName);
     let requiredScript = PORT_SCRIPTS[FACTION_SERVERS[key].scriptRequired];
 

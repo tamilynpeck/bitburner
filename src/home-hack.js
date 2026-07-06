@@ -1,7 +1,6 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-import { getServers, isHackable } from "utils.js";
+import { getServers, isHackable } from "./utils.js";
 
+/** @param {NS} ns */
 export async function main(ns) {
   const SECOND = 1000;
   let servers = [];
@@ -20,6 +19,7 @@ export async function main(ns) {
   }
 }
 
+/** @param {NS} ns */
 async function hackingLoop(ns, target) {
   if (!isHackable(ns, target)) {
     return;
@@ -31,7 +31,7 @@ async function hackingLoop(ns, target) {
   let securityThresh = Math.floor(ns.getServerMinSecurityLevel(target)) + 5;
   securityThresh = securityThresh <= 20 ? 20 : securityThresh;
 
-  // moneyAvailable % threadshold lower when hacking level is lower
+  // moneyAvailable % threshold lower when hacking level is lower
 
   while (true) {
     moneyAvailable = ns.getServerMoneyAvailable(target);

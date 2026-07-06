@@ -1,9 +1,10 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
+import { run_nuke } from "./nuke.js";
+import { isHackable } from "./utils.js";
 
-import { run_nuke } from "nuke.js";
-import { isHackable } from "utils.js";
-
+/** 
+ * @param {NS} ns
+ * @param {string} target 
+ * @param {string|null} server */
 export async function configureHack(ns, target, server = null) {
   const hostServer = server ? server : target;
   const scriptServer = "home";
@@ -32,7 +33,7 @@ export async function configureHack(ns, target, server = null) {
   const script = "hacking-loop.js";
   const files = ns.ls(hostServer);
   if (!files.includes(script)) {
-    await ns.scp(script, hostServer, scriptServer);
+    ns.scp(script, scriptServer, hostServer);
   }
 
   const ramNeeded = ns.getScriptRam(script, hostServer);

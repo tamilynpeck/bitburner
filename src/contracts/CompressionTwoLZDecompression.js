@@ -1,6 +1,4 @@
 /** @param {NS} ns */
-/** @param {import(".").NS} ns */
-
 export default function compressionTwoLZDecompression(input) {
   return null;
 }

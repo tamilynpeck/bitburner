@@ -1,8 +1,7 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-import { getServers } from "utils.js";
+import { getServers } from "./utils.js";
 import getContractFunction from "./contracts/GetContractFunction.js";
 
+/** @param {NS} ns */
 export async function main(ns) {
   const action = ns.args[0];
   let contracts = findContracts(ns);
@@ -18,10 +17,12 @@ export async function main(ns) {
       let input = ns.codingcontract.getData(name, server);
       let answer = getContractFunction(ns, type, input);
       if (answer) {
-        let reward = ns.codingcontract.attempt(answer, name, server, {
-          returnReward: true,
-        });
-        ns.tprint(reward);
+        const reward = ns.codingcontract.attempt(answer, name, server);
+        if (reward) {
+          ns.tprint(`Contract solved successfully! Reward: ${reward}`);
+        } else {
+          ns.tprint("Failed to solve contract.");
+        }
       }
     }
   }
@@ -50,10 +51,10 @@ export function findContracts(ns) {
 }
 
 function containsContract(ns, server, files) {
-  const extention = ".cct";
+  const extension = ".cct";
   let contractList = [];
   for (var i = 0; i < files.length; i++) {
-    if (files[i].includes(extention)) {
+    if (files[i].includes(extension)) {
       let type = ns.codingcontract.getContractType(files[i], server);
       contractList.push({ name: files[i], server: server, type: type });
     }

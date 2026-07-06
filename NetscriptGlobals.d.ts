@@ -8,7 +8,7 @@
 // React and ReactDOM are also declared as globals here, typed via the bundled
 // @types/react@^17 / @types/react-dom@^17 copies shipped with the extension.
 
-import type * as _NS from "./src/NetscriptDefinitions";
+import type * as _NS from "./NetscriptDefinitions";
 
 declare global {
     type _ValueOf = _NS._ValueOf;

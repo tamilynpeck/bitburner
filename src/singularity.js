@@ -1,7 +1,6 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-// import { getServerList } from "utils.js";
+// import { getServerList } from "./utils.js";
 
+/** @param {NS} ns */
 export async function main(ns) {
   // ns.formulas.g;
   // ns.toast("message toast!?", "success");

@@ -1,14 +1,13 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-import { GangMember } from "./gang/GangMember.js";
-import { GangTasks, padding } from "./gang/utils.js";
+import { GangMember } from "./GangMember.js";
+import { GangTasks, padding } from "./utils.js";
 
 export class Gang {
-  constructor(ns, faction = "Slum Snakes") {
+  /** @param {NS} ns */
+  constructor(ns, faction) {
     this.ns = ns;
     this.gang = ns.gang;
-    if (!ns.gang.inGang()) this.gang.createGang(faction);
-    this.type = "Combat";
+    if (!ns.gang.inGang()) this.gang.createGang(ns.enums.FactionName.SlumSnakes);
+    // this.type = "Combat";
   }
 
   info(print = false) {
@@ -26,8 +25,8 @@ export class Gang {
     if (this.gang.canRecruitMember()) {
       let memberCount = this.members().length + 1;
       let newName = `homey-dude-${memberCount}`;
-      let newMemeber = this.gang.recruitMember(newName);
-      if (newMemeber) {
+      let newMember = this.gang.recruitMember(newName);
+      if (newMember) {
         let member = new GangMember(this.ns, newName);
         this.ns.toast(`GANG: Recruited New Member" ${newName}`);
         member.train(GangTasks.TRAIN_HACKING);
@@ -55,7 +54,7 @@ export class Gang {
 
       // train
       // upgrade tasks... when...
-      // buy equipment, vehicals, etc.
+      // buy equipment, vehicles, etc.
     }
   }
 

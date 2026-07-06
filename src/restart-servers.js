@@ -1,9 +1,8 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-import { configureHack } from "configure-hack.js";
+import { configureHack } from "./configure-hack.js";
 
+/** @param {NS} ns */
 export async function main(ns) {
-  const purchasedServers = ns.getPurchasedServers();
+  const purchasedServers = ns.cloud.getServerNames();
   let server = "";
 
   for (var i = 0; i < purchasedServers.length; i++) {
@@ -13,6 +12,7 @@ export async function main(ns) {
   }
 }
 
+/** @param {NS} ns */
 async function restart(ns, server) {
   const runningScripts = ns.ps(server);
   ns.tprint("ps ", runningScripts);
@@ -20,7 +20,7 @@ async function restart(ns, server) {
   const target = server.replace("server-", "").replace(`-${ram}`, "");
 
   if (runningScripts.length == 0) {
-    ns.tprint(`Restart Server: ${server} targetting ${target}`);
+    ns.tprint(`Restart Server: ${server} targeting ${target}`);
     await configureHack(ns, target, server);
   }
 }

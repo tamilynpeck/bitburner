@@ -1,7 +1,5 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-import { configureHack } from "configure-hack.js";
-import { getServers } from "utils.js";
+import { configureHack } from "./configure-hack.js";
+import { getServers } from "./utils.js";
 // import { Gang } from "./gang/Gang.js";
 
 const MINUTE = 60000;
@@ -14,10 +12,11 @@ const UPGRADES = "upgrades.js";
 const GANG = "gangs.js";
 const CRIME = "crime.js";
 
+/** @param {NS} ns */
 export async function main(ns) {
   let hackLevel = ns.getHackingLevel();
   if (hackLevel < 30) {
-    ns.singularity.universityCourse("Rothman University", "Algorithms");
+    ns.singularity.universityCourse(ns.enums.LocationName.Sector12RothmanUniversity, ns.enums.UniversityClassType.algorithms);
   }
 
   if (!isHomeHackRunning(ns)) {
@@ -39,7 +38,7 @@ export async function main(ns) {
       ns.tprint(`Join ${faction}`);
       ns.singularity.joinFaction(faction);
       // if top of joined hierarchy... based on current work? idk
-      ns.singularity.workForFaction(faction, "Hacking Contracts");
+      ns.singularity.workForFaction(faction, ns.enums.FactionWorkType.hacking);
     }
 
     if (min === 1) {

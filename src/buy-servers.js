@@ -1,13 +1,12 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-import { configureHack } from "configure-hack.js";
-import { getServerList, isHackable } from "utils.js";
+import { configureHack } from "./configure-hack.js";
+import { getServerList, isHackable } from "./utils.js";
 
+/** @param {NS} ns */
 export async function main(ns) {
   const servers = getServerList(ns, true, true).reverse();
-  const serverLimit = ns.getPurchasedServerLimit();
+  const serverLimit = ns.cloud.getServerLimit();
   let ram = calcMaxRamSize(ns);
-  let purchasedServers = ns.getPurchasedServers();
+  let purchasedServers = ns.cloud.getServerNames();
   let server = "";
   let target = "";
   let upgradeServers = [];
@@ -25,7 +24,7 @@ export async function main(ns) {
   }
 
   for (var i = 0; i < servers.length; i++) {
-    purchasedServers = ns.getPurchasedServers();
+    purchasedServers = ns.cloud.getServerNames();
     // ns.tprint(`Upgrade servers: ${upgradeServers}`);
     if (purchasedServers.length === serverLimit && upgradeServers.length > 0) {
       ns.tprint(upgradeServers);
@@ -65,7 +64,7 @@ async function setServer(ns, target, ram) {
 
   if (!ns.serverExists(serverName)) {
     ns.purchaseServer(serverName, ram);
-    ns.tprint(`Purchase Server: ${serverName} targetting ${target}`);
+    ns.tprint(`Purchase Server: ${serverName} targeting ${target}`);
     await configureHack(ns, target, serverName);
   }
 }

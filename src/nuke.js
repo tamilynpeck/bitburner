@@ -1,6 +1,4 @@
 /** @param {NS} ns */
-/** @param {import(".").NS} ns */
-
 export function run_nuke(ns, target) {
   if (ns.hasRootAccess(target)) {
     return;
@@ -11,23 +9,28 @@ export function run_nuke(ns, target) {
   var success = false;
 
   if (ns.fileExists("BruteSSH.exe", "home")) {
-    success = ns.brutessh(target);
+    ns.brutessh(target);
+    success = true;
     portCount = success ? portCount + 1 : portCount;
   }
   if (ns.fileExists("FTPCrack.exe", "home")) {
-    success = ns.ftpcrack(target);
+    ns.ftpcrack(target);
+    success = true;
     portCount = success ? portCount + 1 : portCount;
   }
   if (ns.fileExists("relaySMTP.exe", "home")) {
-    success = ns.relaysmtp(target);
+    ns.relaysmtp(target);
+    success = true;
     portCount = success ? portCount + 1 : portCount;
   }
   if (ns.fileExists("HTTPWorm.exe", "home")) {
-    success = ns.httpworm(target);
+    ns.httpworm(target);
+    success = true;
     portCount = success ? portCount + 1 : portCount;
   }
   if (ns.fileExists("SQLInject.exe", "home")) {
-    success = ns.sqlinject(target);
+    ns.sqlinject(target);
+    success = true;
     portCount = success ? portCount + 1 : portCount;
   }
 

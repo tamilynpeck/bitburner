@@ -1,7 +1,6 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-import { isHackable, getServers, findServer } from "utils.js";
+import { isHackable, getServers, findServer } from "./utils.js";
 
+/** @param {NS} ns */
 export async function main(ns) {
   const action = ns.args[0];
 
@@ -21,6 +20,7 @@ export async function main(ns) {
   }
 }
 
+/** @param {NS} ns */
 export function getServerConnection(ns, server) {
   let connections = findServer(ns, server);
   return connectionCommands(connections);
@@ -34,6 +34,7 @@ function connectionCommands(connections) {
   return command;
 }
 
+/** @param {NS} ns */
 function findProfit(ns) {
   const servers = getServers(ns);
   let hackableServers = [];
@@ -59,6 +60,7 @@ function findProfit(ns) {
   return hackableServers;
 }
 
+/** @param {NS} ns */
 function printMonies(ns, target) {
   let hasAccess = ns.hasRootAccess(target);
   if (hasAccess) {
@@ -68,6 +70,7 @@ function printMonies(ns, target) {
 
 // Max: {"1":100,"2":309,"3":522,"4":832,"5":1285}
 // Min: {"0": 1, "1":50,"2":100,"3":323,"4":412,"5":750}
+/** @param {NS} ns */
 function worthBuyingPortHack(ns) {
   const servers = getServers(ns);
   let config = {};

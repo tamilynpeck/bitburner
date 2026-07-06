@@ -1,8 +1,7 @@
-/** @param {NS} ns */
-/** @param {import(".").NS} ns */
-import { GangTasks } from "./gang/utils.js";
+import { GangTasks } from "./utils.js";
 
 export class GangMember {
+  /** @param {NS} ns */
   constructor(ns, name) {
     this.ns = ns;
     this.gang = ns.gang;

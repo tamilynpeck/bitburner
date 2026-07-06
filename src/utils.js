@@ -1,6 +1,4 @@
 /** @param {NS} ns */
-/** @param {import(".").NS} ns */
-
 export function getServers(ns) {
   let servers = ns.scan("home");
   let temp = [];
@@ -13,6 +11,7 @@ export function getServers(ns) {
   return servers;
 }
 
+/** @param {NS} ns */
 export function getServerList(
   ns,
   isServerHackable = false,
@@ -23,9 +22,9 @@ export function getServerList(
   let targets = [];
   let target = "";
 
-  // TODO: make function recurisve??
+  // TODO: make function recursive??
   for (var i = 0; i < 150; i++) {
-    target = [];
+    targets = [];
     temp = ns.scan(servers[i]);
 
     for (var j = 0; j < temp.length; j++) {
@@ -44,6 +43,7 @@ export function getServerList(
   return servers;
 }
 
+/** @param {NS} ns */
 export function isWorthHacking(ns, target) {
   // security/chance
   if (ns.getServerMaxMoney(target) == 0) {
@@ -53,7 +53,8 @@ export function isWorthHacking(ns, target) {
   return true;
 }
 
-//split into access check vs worth hacknig check
+//split into access check vs worth hacking check
+/** @param {NS} ns */
 export function isHackable(ns, target, onTargetServer = false) {
   if (!ns.hasRootAccess(target)) {
     ns.print(`${target} no Root Access on target`);
@@ -76,6 +77,7 @@ export function isHackable(ns, target, onTargetServer = false) {
 }
 
 // identify highest hackable server...
+/** @param {NS} ns */
 export function highestHackableServer(ns) {
   const servers = unique_server_list(ns);
   let maxServer = "";
@@ -98,6 +100,7 @@ export function highestHackableServer(ns) {
   }
 }
 
+/** @param {NS} ns */
 export function findServer(ns, server) {
   ns.tprint(`Find: ${server}`);
   let servers = ns.scan(server);
@@ -117,6 +120,7 @@ export function findServer(ns, server) {
   return connections;
 }
 
+/** @param {NS} ns */
 export async function backdoor(ns, server) {
   let connections = findServer(ns, server);
   // ns.tprint(connections);
