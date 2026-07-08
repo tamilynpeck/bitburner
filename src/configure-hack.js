@@ -1,4 +1,4 @@
-import { run_nuke } from "./nuke.js";
+import { runNuke } from "./nuke.js";
 import { isHackable } from "./utils.js";
 
 /** 
@@ -10,7 +10,7 @@ export async function configureHack(ns, target, server = null) {
   const scriptServer = "home";
   let hasAccess = ns.hasRootAccess(target);
   if (!hasAccess) {
-    run_nuke(ns, target);
+    runNuke(ns, target);
     hasAccess = ns.hasRootAccess(target);
     if (!hasAccess) {
       return;
@@ -37,13 +37,20 @@ export async function configureHack(ns, target, server = null) {
   }
 
   const ramNeeded = ns.getScriptRam(script, hostServer);
+  if (ramNeeded == 0) {
+    ns.tprint(`ramNeeded 0 (Script Not Found) on ${hostServer}`);
+    return;
+  }
+
   const maxRam = ns.getServerMaxRam(hostServer);
   const usedRam = ns.getServerUsedRam(hostServer);
   const ramAvailable = maxRam - usedRam;
+
   if (ramAvailable <= 0) {
     ns.tprint(`no ram available on ${hostServer}`);
     return;
   }
+
 
   const threads =
     Math.floor(ramAvailable / ramNeeded) - (hostServer == "home" ? 20 : 0);

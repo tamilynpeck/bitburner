@@ -1,3 +1,5 @@
+// import { NS } from "@ns"
+
 /** @param {NS} ns */
 export function getServers(ns) {
   let servers = ns.scan("home");

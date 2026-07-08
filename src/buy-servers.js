@@ -51,24 +51,27 @@ export async function main(ns) {
   }
 }
 
+/** @param {NS} ns */
 function canBuyServerSize(ns, ram) {
   const money = ns.getServerMoneyAvailable("home");
-  const cost = ns.getPurchasedServerCost(ram);
+  const cost = ns.cloud.getServerCost(ram);
   const percentage = Math.round((cost / money) * 100);
   ns.tprint(`cost: ${cost} ${percentage}% of balance.`);
   return cost < money * 0.5;
 }
 
+/** @param {NS} ns */
 async function setServer(ns, target, ram) {
   let serverName = `server-${target}-${ram}`;
 
   if (!ns.serverExists(serverName)) {
-    ns.purchaseServer(serverName, ram);
+    ns.cloud.purchaseServer(serverName, ram);
     ns.tprint(`Purchase Server: ${serverName} targeting ${target}`);
     await configureHack(ns, target, serverName);
   }
 }
 
+/** @param {NS} ns */
 function calcMaxRamSize(ns) {
   const money = ns.getServerMoneyAvailable("home");
   // const costPerRam = 55000
@@ -113,10 +116,11 @@ function calcMaxRamSize(ns) {
   return ram;
 }
 
+/** @param {NS} ns */
 function checkForUpgrade(ns, server, newRam) {
   const money = ns.getServerMoneyAvailable("home");
   const ram = server.split("-").slice(-1)[0];
-  const upgradeCost = ns.getPurchasedServerCost(newRam);
+  const upgradeCost = ns.cloud.getServerCost(newRam);
 
   if (ram < newRam && upgradeCost < money) {
     const target = server.replace("server-", "").replace(`-${ram}`, "");
@@ -125,8 +129,9 @@ function checkForUpgrade(ns, server, newRam) {
   return;
 }
 
+/** @param {NS} ns */
 function deleteServer(ns, server) {
   ns.tprint(`Delete Server: ${server}`);
   ns.killall(server);
-  ns.deleteServer(server);
+  ns.cloud.deleteServer(server);
 }

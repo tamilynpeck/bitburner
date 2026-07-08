@@ -3,26 +3,35 @@ import getContractFunction from "./contracts/GetContractFunction.js";
 
 /** @param {NS} ns */
 export async function main(ns) {
-  const action = ns.args[0];
+  const action = ns.args[0] ? String(ns.args[0]) : "find";
   let contracts = findContracts(ns);
 
-  if (action === "find" && contracts.length > 0) {
-    contracts = sortByKey(contracts, "type");
-    ns.toast(`${contracts.length} Contracts Found`, "info", 10000);
-    for (var i = 0; i < contracts.length; i++) {
-      let type = contracts[i].type;
-      let server = contracts[i].server;
-      let name = contracts[i].name;
-      ns.tprint(`${i}: ${type} Contract Found on ${server} ${name}`);
-      let input = ns.codingcontract.getData(name, server);
-      let answer = getContractFunction(ns, type, input);
-      if (answer) {
-        const reward = ns.codingcontract.attempt(answer, name, server);
-        if (reward) {
-          ns.tprint(`Contract solved successfully! Reward: ${reward}`);
-        } else {
-          ns.tprint("Failed to solve contract.");
-        }
+  if (action !== "find" || contracts.length === 0) {
+    return 
+  }
+
+  contracts = sortByKey(contracts, "type");
+  ns.toast(`${contracts.length} Contracts Found`, "info", 10000);
+
+  let tempMax = contracts.length > 10 ? 10 : contracts.length;
+
+  for (var i = 0; i < tempMax; i++) {
+    let type = contracts[i].type;
+    let server = contracts[i].server;
+    let name = contracts[i].name;
+    ns.tprint(`${i}: ${type} Contract Found on ${server} ${name}`);
+
+    let input = ns.codingcontract.getData(name, server);
+    ns.tprint(`Input: ${JSON.stringify(input)}`);
+    let answer = getContractFunction(ns, type, input);
+    ns.tprint(`Answer: ${answer}`);
+
+    if (answer) {
+      const reward = ns.codingcontract.attempt(answer, name, server);
+      if (reward) {
+        ns.tprint(`Contract solved successfully! Reward: ${reward}`);
+      } else {
+        ns.tprint("Failed to solve contract.");
       }
     }
   }
@@ -36,6 +45,7 @@ function sortByKey(array, key) {
   });
 }
 
+/** @param {NS} ns */
 export function findContracts(ns) {
   const servers = getServers(ns);
   let contracts = [];
@@ -50,6 +60,7 @@ export function findContracts(ns) {
   return contracts;
 }
 
+/** @param {NS} ns */
 function containsContract(ns, server, files) {
   const extension = ".cct";
   let contractList = [];

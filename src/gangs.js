@@ -65,7 +65,7 @@ export async function main(ns) {
     dex_asc_points: 0,
     agi_asc_points: 0,
     cha_asc_points: 0,
-    upgrades: ["Glock 18C", "Baseball Bat", "Ford Flex V20"],
+    upgrades: ["Malorian-3516", "Baseball Bat", "Herrera Outlaw GTS"],
     augmentations: [],
     respectGain: 0.004151839228969363,
     wantedLevelGain: 0.006314566197744367,

@@ -1,38 +1,18 @@
 /** @param {NS} ns */
-export function run_nuke(ns, target) {
+export function runNuke(ns, target) {
   if (ns.hasRootAccess(target)) {
+    ns.print(`Already have root access on ${target}`);
     return;
   }
+
   const requiredPorts = ns.getServerNumPortsRequired(target);
-
   let portCount = 0;
-  var success = false;
 
-  if (ns.fileExists("BruteSSH.exe", "home")) {
-    ns.brutessh(target);
-    success = true;
-    portCount = success ? portCount + 1 : portCount;
-  }
-  if (ns.fileExists("FTPCrack.exe", "home")) {
-    ns.ftpcrack(target);
-    success = true;
-    portCount = success ? portCount + 1 : portCount;
-  }
-  if (ns.fileExists("relaySMTP.exe", "home")) {
-    ns.relaysmtp(target);
-    success = true;
-    portCount = success ? portCount + 1 : portCount;
-  }
-  if (ns.fileExists("HTTPWorm.exe", "home")) {
-    ns.httpworm(target);
-    success = true;
-    portCount = success ? portCount + 1 : portCount;
-  }
-  if (ns.fileExists("SQLInject.exe", "home")) {
-    ns.sqlinject(target);
-    success = true;
-    portCount = success ? portCount + 1 : portCount;
-  }
+  portCount += ns.brutessh(target) ? 1 : 0;
+  portCount += ns.ftpcrack(target) ? 1 : 0;
+  portCount += ns.relaysmtp(target) ? 1 : 0;
+  portCount += ns.httpworm(target) ? 1 : 0;
+  portCount += ns.sqlinject(target) ? 1 : 0;
 
   if (portCount >= requiredPorts) {
     ns.tprint("Nuking: ", target);

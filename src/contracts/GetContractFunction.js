@@ -1,5 +1,3 @@
-/** @param {NS} ns */
-
 import findLargestPrimeFactor from "./FindLargestPrimeFactor.js";
 import subarrayWithMaximumSum from "./SubarrayWithMaximumSum.js";
 import spiralizeMatrix from "./SpiralizeMatrix.js";
@@ -20,6 +18,8 @@ import {
   algorithmicStockTraderFour,
 } from "./AlgorithmicStockTrader.js";
 
+// CodingContractSignatures
+// ns.enums.CodingContractName
 const CONTRACTS_MAP = {
   "Find Largest Prime Factor": findLargestPrimeFactor,
   "Subarray with Maximum Sum": subarrayWithMaximumSum,
@@ -51,10 +51,14 @@ const CONTRACTS_MAP = {
 };
 
 // TODO: Factory pattern opportunity??
+/** @param {NS} ns */
 export default function getContractFunction(ns, type, input) {
+  // ns.enums.CodingContractName
   let func = CONTRACTS_MAP[type];
-  if (!func) return null;
-  let result = func(input);
-  if (result) ns.tprint(result);
-  return result;
+  if (!func) {
+    ns.tprint(`Contract type ${type} not found.`);
+    return null;
+  }
+
+  return func(input);
 }

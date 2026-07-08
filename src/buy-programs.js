@@ -84,7 +84,7 @@ export async function main(ns) {
 
   for (var key in PORT_SCRIPTS) {
     if (
-      !home.haveScript(PORT_SCRIPTS[key].name) &&
+      !home.fileExists(PORT_SCRIPTS[key].name) &&
       hackLevel >= PORT_SCRIPTS[key].minHackLevel &&
       money >= PORT_SCRIPTS[key].cost
     ) {
@@ -94,7 +94,7 @@ export async function main(ns) {
     }
     if (
       // !player.tor &&
-      !home.haveScript(PORT_SCRIPTS[key].name) &&
+      !home.fileExists(PORT_SCRIPTS[key].name) &&
       hackLevel >= PORT_SCRIPTS[key].createLevel
     ) {
       ns.singularity.createProgram(PORT_SCRIPTS[key].name);
@@ -116,7 +116,7 @@ export async function main(ns) {
     if (
       !ns.getServer(serverName).backdoorInstalled &&
       hackLevel >= requiredHackLevel &&
-      (home.haveScript(requiredScript.name) || requiredScript.canBuy)
+      (home.fileExists(requiredScript.name) || requiredScript.canBuy)
     ) {
       ns.toast(
         `TIME TO BACKDOOR: ${serverName}! @ ${requiredHackLevel}`,

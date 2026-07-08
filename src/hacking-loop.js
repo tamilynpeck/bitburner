@@ -1,3 +1,5 @@
+import { toast } from "./helpers";
+
 /** @param {NS} ns */
 export async function main(ns) {
   const host = ns.getHostname();
@@ -22,12 +24,12 @@ export async function main(ns) {
     } else {
       await ns.hack(target);
       let income = ns.getScriptIncome(script, target);
-      let type = income > 0 ? ns.enums.ToastVariant.SUCCESS : ns.enums.ToastVariant.ERROR;
+      let type = income > 0 ? "success" : "error";
       if (income > 1000000000 || type == "error")
-        ns.toast(
+        toast(
+          ns,
           `${host} - ${target} - ${formatter.format(income)}`,
           type,
-          5000
         );
     }
   }

@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "paths": {
+      "@ns": ["NetscriptDefinitions.d.ts"],
+      "@/*": ["./src/*"],
+      "*": ["./src/*"],
+      "/*": ["./src/*"],
+      "react": [
+        "c:/Users/tltam/.vscode/extensions/ficocelliguy.bitburner-file-sync-plugin-0.1.2/dist/types/react"
+      ],
+      "react-dom": [
+        "c:/Users/tltam/.vscode/extensions/ficocelliguy.bitburner-file-sync-plugin-0.1.2/dist/types/react-dom"
+      ]
+    }
+  },
+  "include": ["**/*"],
+  "files": ["NetscriptDefinitions.d.ts", "NetscriptGlobals.d.ts"]
+}

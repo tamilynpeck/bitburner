@@ -64,6 +64,7 @@ export async function main(ns) {
   }
 }
 
+/** @param {NS} ns */
 function isHomeHackRunning(ns) {
   const scriptsRunning = ns.ps(HOME);
   for (var i = 0; i < scriptsRunning.length; i++) {
@@ -74,6 +75,7 @@ function isHomeHackRunning(ns) {
   return false;
 }
 
+/** @param {NS} ns */
 function runHomeHack(ns) {
   const ramNeeded = ns.getScriptRam(HOME_HACK, HOME);
   const maxRam = ns.getServerMaxRam(HOME);
@@ -89,6 +91,7 @@ function runHomeHack(ns) {
   }
 }
 
+/** @param {NS} ns */
 async function setup(ns) {
   const servers = getServers(ns);
 
