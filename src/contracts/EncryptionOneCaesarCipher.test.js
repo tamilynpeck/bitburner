@@ -1,4 +1,4 @@
-import encryptionOneCaesarCipher from "EncryptionOneCaesarCipher.js";
+import encryptionOneCaesarCipher from "./EncryptionOneCaesarCipher.js";
 
 describe("test generate one IP address", function () {
   it("test encryptionOneCaesarCipher", function () {

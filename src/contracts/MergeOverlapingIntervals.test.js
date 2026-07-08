@@ -1,4 +1,4 @@
-import { mergeOverlapingIntervals } from "./contracts/MergeOverlapingIntervals.js";
+import mergeOverlapingIntervals from "./MergeOverlapingIntervals.js";
 
 describe("test generate one IP address", function () {
   it("test mergeOverlapingIntervals", function () {

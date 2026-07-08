@@ -18,3 +18,9 @@
 - Factory Pattern (contracts)
 - handle different memory available levels
 - Add logging files?
+
+## Game Play
+
+Main Script... `afk.js` has the main loop that runs the other scripts if able.
+
+Running `hacking-loop.js` on the target servers.

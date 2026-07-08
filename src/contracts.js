@@ -7,7 +7,7 @@ export async function main(ns) {
   let contracts = findContracts(ns);
 
   if (action !== "find" || contracts.length === 0) {
-    return 
+    return
   }
 
   contracts = sortByKey(contracts, "type");
