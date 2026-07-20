@@ -3,14 +3,15 @@ import getContractFunction from "./contracts/GetContractFunction.js";
 /** @param {NS} ns */
 export async function main(ns) {
   // SPECIFY THE CONTRACT NAME YOU WANT TO TEST
-  const TEST_NAME = ns.enums.CodingContractName.AlgorithmicStockTraderI;
-
+  const TEST_NAME = ns.enums.CodingContractName.GenerateIPAddresses;
 
   const contract = ns.codingcontract.createDummyContract(TEST_NAME);
   if (!contract) {
     ns.tprint("Failed to create dummy contract.");
     return;
   }
+  ns.tprint(`$Dummy Contract Generated: ${contract}`);
+
   const data = ns.codingcontract.getData(contract);
   ns.tprint(`Data: ${JSON.stringify(data)}`);
   const answer = getContractFunction(ns, TEST_NAME, data);

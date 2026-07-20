@@ -13,18 +13,25 @@
     "isolatedModules": true,
     "jsx": "react",
     "paths": {
-      "@ns": ["NetscriptDefinitions.d.ts"],
-      "@/*": ["./src/*"],
-      "*": ["./src/*"],
-      "/*": ["./src/*"],
-      "react": [
-        "c:/Users/tltam/.vscode/extensions/ficocelliguy.bitburner-file-sync-plugin-0.1.2/dist/types/react"
+      "@ns": [
+        "NetscriptDefinitions.d.ts"
       ],
-      "react-dom": [
-        "c:/Users/tltam/.vscode/extensions/ficocelliguy.bitburner-file-sync-plugin-0.1.2/dist/types/react-dom"
+      "@/*": [
+        "./src/*"
+      ],
+      "*": [
+        "./src/*"
+      ],
+      "/*": [
+        "./src/*"
       ]
     }
   },
-  "include": ["**/*"],
-  "files": ["NetscriptDefinitions.d.ts", "NetscriptGlobals.d.ts"]
+  "include": [
+    "**/*"
+  ],
+  "files": [
+    "NetscriptDefinitions.d.ts",
+    "NetscriptGlobals.d.ts"
+  ]
 }

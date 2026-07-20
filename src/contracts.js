@@ -13,28 +13,35 @@ export async function main(ns) {
   contracts = sortByKey(contracts, "type");
   ns.toast(`${contracts.length} Contracts Found`, "info", 10000);
 
-  let tempMax = contracts.length > 10 ? 10 : contracts.length;
+  // let tempMax = contracts.length > 11 ? 11 : contracts.length;
+  let tempMax = contracts.length;
+  let solved = 0;
 
-  for (var i = 0; i < tempMax; i++) {
+  for (var i = 1; i < tempMax; i++) {
     let type = contracts[i].type;
     let server = contracts[i].server;
     let name = contracts[i].name;
     ns.tprint(`${i}: ${type} Contract Found on ${server} ${name}`);
 
     let input = ns.codingcontract.getData(name, server);
-    ns.tprint(`Input: ${JSON.stringify(input)}`);
+    ns.tprint(`Input: ${JSON.stringify(input, (key, value) => typeof value === 'bigint' ? value.toString() : value)}`);
     let answer = getContractFunction(ns, type, input);
+    if (answer === null) continue;
     ns.tprint(`Answer: ${answer}`);
 
     if (answer) {
       const reward = ns.codingcontract.attempt(answer, name, server);
       if (reward) {
         ns.tprint(`Contract solved successfully! Reward: ${reward}`);
+        solved += 1;
       } else {
         ns.tprint("Failed to solve contract.");
       }
     }
   }
+
+  ns.toast(`Solved ${solved} of ${tempMax} Contracts`, "info", 10000);
+  ns.tprint(`Solved ${solved} of ${tempMax} Contracts`);
 }
 
 function sortByKey(array, key) {
@@ -71,10 +78,4 @@ function containsContract(ns, server, files) {
     }
   }
   return contractList;
-}
-
-function byType(type) {
-  return function (element) {
-    return element.type === type;
-  };
 }
